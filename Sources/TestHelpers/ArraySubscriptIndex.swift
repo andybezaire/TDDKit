@@ -1,7 +1,7 @@
 import XCTest
 
-public extension Array {
-    subscript(
+extension Array {
+    public subscript(
         index index: Index,
         file: StaticString = #file,
         line: UInt = #line
