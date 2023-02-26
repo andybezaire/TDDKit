@@ -11,7 +11,7 @@ They can help with writing tests that are clear and reduce boilerplate code.
 
 ## Helpers
 
-### Array Subscript
+### Array Subscript Index
 
 Accessing an array with an index that is out of bounds will cause a runtime crash in swift. 
 If this happens in a test, the default Xcode settings will pause execution and open the debugger. 
