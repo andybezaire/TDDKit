@@ -1,6 +1,6 @@
 import XCTest
 
-extension Array {
+public extension Array {
     subscript(
         index index: Index,
         file: StaticString = #file,
