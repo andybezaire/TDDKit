@@ -1,4 +1,10 @@
 # TestHelpers
+<p>
+  <img src="https://img.shields.io/github/license/andybezaire/TestHelpers" />
+  <a href="https://twitter.com/andy_bezaire">
+    <img src="https://img.shields.io/twitter/url?url=http%3A%2F%2Fgithub.com%2Fandybezaire%2FAuthorization=" alt="Twitter: @andy_bezaire" />
+  </a>
+</p>
 
 Some small helpers used to improve the testing experience.
 
@@ -8,6 +14,7 @@ But it also brings a lot of boilerplate.
 
 These test helpers are designed with TDD in mind. 
 They can help with writing tests that are clear and reduce boilerplate code.
+
 
 ## Helpers
 
@@ -56,12 +63,60 @@ private func makeSUT(
 }
 ```
 
+
+## Sample Code
+
+For sample code showing how to use a helper function, check out the test code for that helper. 
+
+
 ## Installation
 
-### Add to Xcode project
+### Xcode Project
  
 Add this package as a dependency to the test target of your Xcode project.
 
-### Add to Swift package
+1. Xcode Menu > File > Add Packages...
+1. Paste this project's URL to the "Search or Enter Package URL" field. (https://github.com/andybezaire/TestHelpers)
+1. Select `TestHelpers` product and add it to your project's **test target** Note: **NOT your main target.**
+1. Press "Add Package" button.
+
+### Swift Package Manager (SPM)
 
 Add this package as a dependency to the test target of your Swift package. 
+
+```swift
+// swift-tools-version: 5.7
+import PackageDescription
+
+let package = Package(
+    name: "SampleProduct",
+    products: [
+        .library(name: "SampleProduct", targets: ["SampleProduct"])
+    ],
+    dependencies: [
+        .package(name: "TestHelpers", url: "https://github.com/andybezaire/TestHelpers.git", from: "1.0.0")
+    ],
+    targets: [
+        .target(name: "SampleProduct", dependencies: []),
+        .testTarget(name: "SampleProductTests", dependencies: ["SampleProduct", "TestHelpers"])
+    ]
+)
+```swift
+
+
+## More Info and Feature Requests
+
+Please do not hesitate to open a GitHub issue for any questions or feature requests. 
+(https://github.com/andybezaire/TestHelpers/issues) 
+
+
+## License
+
+"TestHelpers" is available under the MIT license. See the LICENSE file for more info.
+
+
+## Credit
+
+Copyright (c) 2023 andybezaire
+
+Created by: Andy Bezaire
