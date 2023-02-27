@@ -98,7 +98,7 @@ let package = Package(
         .testTarget(name: "SampleProductTests", dependencies: ["SampleProduct", "TestHelpers"])
     ]
 )
-```swift
+```
 
 
 ## More Info and Feature Requests
