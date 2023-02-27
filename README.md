@@ -37,12 +37,14 @@ XCTAssertEqual(spy.messages.count, 1)
 XCTAssertEqual(spy.messages[index: 0], .userLogin)
 ```
 
-### Track Memory Leaks
+### Expect Will Deallocate Instance
 
 Memory leaks occur when an object is not properly released from memory. 
 This often happens when mistakenly creating a circular strong reference.
 
-This method will help to catch these kinds of errors. It is most useful to use it in your makeSUT method.
+This method will help to catch these kinds of errors by making sure 
+that your object has been deallocated by the end of the test. 
+It is most useful to use it in your makeSUT method.
 
 Usage:
 
@@ -56,8 +58,8 @@ private func makeSUT(
     let spy = Spy(userLoginResult: userLoginResult)
     let sut = LoginFlow(service: spy)
 
-    trackMemoryLeaks(for: sut, file: file, line: line)
-    trackMemoryLeaks(for: spy, file: file, line: line)
+    expectWillDeallocate(for: sut, file: file, line: line)
+    expectWillDeallocate(for: spy, file: file, line: line)
 
     return (sut, spy)
 }
