@@ -1,5 +1,5 @@
 import XCTest
-@testable import TestHelpers
+import TestHelpers
 
 final class TestHelpersTests: XCTestCase {
     func test_outOfRange_index_example() throws {

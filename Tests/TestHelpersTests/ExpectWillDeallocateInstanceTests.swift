@@ -1,5 +1,5 @@
 import XCTest
-@testable import TestHelpers
+import TestHelpers
 
 final class ExpectWillDeallocateInstanceTests: XCTestCase {
     func test_circularReference_example() throws {
