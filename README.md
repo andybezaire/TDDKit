@@ -1,8 +1,10 @@
+![test status](https://github.com/andybezaire/TestHelpers/actions/workflows/swift.yml/badge.svg)
+![license MIT](https://badgen.net/github/license/andybezaire/TestHelpers)
+
 # TestHelpers
 <p>
-  <img src="https://img.shields.io/github/license/andybezaire/TestHelpers" />
   <a href="https://twitter.com/andy_bezaire">
-    <img src="https://img.shields.io/twitter/url?url=http%3A%2F%2Fgithub.com%2Fandybezaire%2FAuthorization=" alt="Twitter: @andy_bezaire" />
+    <img src="https://img.shields.io/twitter/url?url=http%3A%2F%2Fgithub.com%2Fandybezaire%2FTestHelpers=" alt="Twitter: @andy_bezaire" />
   </a>
 </p>
 
