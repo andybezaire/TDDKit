@@ -1,5 +1,5 @@
 ![test status](https://github.com/andybezaire/TestHelpers/actions/workflows/swift.yml/badge.svg)
-![license MIT](https://badgen.net/github/license/andybezaire/TestHelpers)
+![license MIT](https://img.shields.io/github/license/andybezaire/TestHelpers)
 
 # TestHelpers
 <p>
