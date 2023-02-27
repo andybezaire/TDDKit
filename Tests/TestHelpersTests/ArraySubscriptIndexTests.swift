@@ -2,7 +2,7 @@ import XCTest
 @testable import TestHelpers
 
 final class TestHelpersTests: XCTestCase {
-    func testExample() throws {
+    func test_outOfRange_index_example() throws {
         let array = [0, 1, 1, 2, 3, 5]
 
         XCTAssertEqual(array[index: 0], 0)
