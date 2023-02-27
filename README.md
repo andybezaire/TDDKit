@@ -103,13 +103,14 @@ let package = Package(
 
 ## More Info and Feature Requests
 
-Please do not hesitate to open a GitHub issue for any questions or feature requests. 
-(https://github.com/andybezaire/TestHelpers/issues) 
+Please do not hesitate to open a [GitHub issue](https://github.com/andybezaire/TestHelpers/issues) 
+for any questions or feature requests.  
 
 
 ## License
 
-"TestHelpers" is available under the MIT license. See the LICENSE file for more info.
+"TestHelpers" is available under the MIT license. 
+See the [LICENSE](https://github.com/andybezaire/TestHelpers/blob/main/LICENSE) file for more info.
 
 
 ## Credit
