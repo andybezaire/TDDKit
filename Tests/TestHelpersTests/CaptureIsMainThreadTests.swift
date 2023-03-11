@@ -60,12 +60,12 @@ final class CaptureIsMainThreadTests: XCTestCase {
 }
 
 // MARK: - production
-protocol TitleService {
+private protocol TitleService {
     func fetchTitle() async throws -> String
 }
 
 @MainActor
-class ViewModel: ObservableObject {
+private class ViewModel: ObservableObject {
     private let service: TitleService
 
     init(service: TitleService, initialTitle: String? = nil) {

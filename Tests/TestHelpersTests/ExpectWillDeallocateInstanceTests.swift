@@ -22,6 +22,7 @@ final class ExpectWillDeallocateInstanceTests: XCTestCase {
         expectWillDeallocate(instance: sut)
     }
 
+    // MARK: - helpers
     private class Instance {
         var reference: Instance?
         init(reference: Instance? = nil) { self.reference = reference }
