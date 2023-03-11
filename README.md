@@ -32,6 +32,26 @@ XCTAssertEqual(spy.messages.count, 1)
 XCTAssertEqual(spy.messages[index: 0], .userLogin)
 ```
 
+### Capture Error
+
+The `do`-`try`-`catch` dance with optional captured errors can add a lot of boilerplate to your tests. 
+
+This helps by turning the error capture into a single line. A non-optional error is returned 
+or a test failure happens if an error is not thrown.
+
+Usage:
+ 
+```swift
+func test_failingFetchX_fetchY_fails() async throws {
+    let error = AnyError()
+    let (sut, _) = makeSUT(fetchXResult: .failure(error))
+
+    let capturedError = await captureError(from: try await sut.fetchY())
+
+    XCTAssertEqual(capturedError as? AnyError, error)
+}
+```
+
 ### Expect Will Deallocate Instance
 
 Memory leaks occur when an object is not properly released from memory. 
