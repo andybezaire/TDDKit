@@ -24,7 +24,7 @@ import Foundation
 ///   - dropCount: _Optional._ The number of initial values to drop. Defaults to 1,
 ///   as the @Publisher will publish the initial value and that often does not
 ///   need to happen on the main thread.
-///   - block: The action that should happen to cause  the publisher to publish.
+///   - block: The action that should happen to cause the publisher to publish.
 /// - Returns: An array of `Bool`s indicating if the publishes were on the main thread.
 public func captureIsMainThread<P>(
     for publisher: P,
