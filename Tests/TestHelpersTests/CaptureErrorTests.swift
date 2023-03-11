@@ -17,7 +17,6 @@ final class CaptureErrorTests: XCTestCase {
         XCTExpectFailure()
         let capturedError = await self.captureError(from: try await block())
 
-        XCTAssertNotNil(capturedError)
         XCTAssertEqual(capturedError as? CaptureError, .noErrorThrown)
     }
 
