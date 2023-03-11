@@ -1,20 +1,6 @@
 import XCTest
 import TestHelpers
 
-// MARK: - captureError
-
-extension XCTestCase {
-    func captureError<T>(from block: @autoclosure () async throws -> T) async -> Error? {
-        var capturedError: Error?
-        do {
-            _ = try await block()
-        } catch {
-            capturedError = error
-        }
-        return capturedError
-    }
-}
-
 final class CaptureErrorTests: XCTestCase {
     func test_failingFetchX_fetchY_fails() async throws {
         let error = AnyError()
