@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "TestHelpers",
+    platforms: [.macOS(.v10_15)],
     products: [
         .library(name: "TestHelpers", targets: ["TestHelpers"])
     ],
