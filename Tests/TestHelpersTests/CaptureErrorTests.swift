@@ -4,7 +4,7 @@ import TestHelpers
 // MARK: - captureError
 
 extension XCTestCase {
-    func captureError<T>(from block: () async throws -> T) async -> Error? {
+    func captureError<T>(from block: @autoclosure () async throws -> T) async -> Error? {
         var capturedError: Error?
         do {
             _ = try await block()
@@ -20,7 +20,7 @@ final class CaptureErrorTests: XCTestCase {
         let error = AnyError()
         let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-        let capturedError = await captureError(from: { try await sut.fetchY() })
+        let capturedError = await captureError(from: try await sut.fetchY())
 
         XCTAssertNotNil(error)
         XCTAssertEqual(capturedError as? AnyError, error)
