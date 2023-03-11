@@ -6,9 +6,27 @@ final class CaptureErrorTests: XCTestCase {
         let error = AnyError()
         let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-        let capturedError = await captureError(from: try await sut.fetchY())
+        let capturedError: Error = await captureError(from: try await sut.fetchY())
 
-        XCTAssertNotNil(error)
+        XCTAssertEqual(capturedError as? AnyError, error)
+    }
+
+    func test_succedingBlock_captureError_fails() async throws {
+        let block: () async throws -> Void = { }
+
+        XCTExpectFailure()
+        let capturedError = await self.captureError(from: try await block())
+
+        XCTAssertNotNil(capturedError)
+        XCTAssertEqual(capturedError as? CaptureError, .noErrorThrown)
+    }
+
+    func test_failingBlock_captureError_succeeds() async throws {
+        let error = AnyError()
+        let block: () async throws -> Void = { throw error }
+
+        let capturedError = await captureError(from: try await block())
+
         XCTAssertEqual(capturedError as? AnyError, error)
     }
 
