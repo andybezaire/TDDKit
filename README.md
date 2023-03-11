@@ -153,6 +153,6 @@ See the [LICENSE](https://github.com/andybezaire/TestHelpers/blob/main/LICENSE) 
 
 ## Credit
 
-Copyright (c) 2023 andybezaire
+Copyright (c) 2023 Andy Bezaire
 
-Created by: Andy Bezaire
+Created by: andybezaire
