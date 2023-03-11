@@ -3,15 +3,15 @@ import Foundation
 /// An equatable error.
 ///
 /// This can be used to test that a service throws the error passed to one of its dependencies.
-///
+/// For example:
 /// ```
-/// func test_failingXXFetch_fetch_fails() async throws {
+/// func test_failingFetchX_fetchY_fails() async throws {
 ///     let error = AnyError()
-///     let (sut, _) = makeSUT(xxFetchResult: .failure(error))
+///     let (sut, _) = makeSUT(fetchXResult: .failure(error))
 ///
-///     let capturedError = await captureError(from: try await sut.fetch())
+///     let capturedError = await captureError(from: try await sut.fetchY())
 ///
-///     XCTAssertNotNil(capturedError)
+///     XCTAssertNotNil(error)
 ///     XCTAssertEqual(capturedError as? AnyError, error)
 /// }
 /// ```
