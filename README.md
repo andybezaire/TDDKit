@@ -13,6 +13,24 @@ They can help with writing tests that are clear and reduce boilerplate code.
 
 ## Helpers
 
+### Any Error
+
+This Equatable Identifiable Error can be used to help test errors thrown by dependencies.
+
+Usage:
+
+```swift
+func test_failingFetchX_fetchY_fails() async throws {
+    let error = AnyError()
+    let (sut, _) = makeSUT(fetchXResult: .failure(error))
+
+    let capturedError = await captureError(from: try await sut.fetchY())
+
+    XCTAssertNotNil(error)
+    XCTAssertEqual(capturedError as? AnyError, error)
+}
+```
+
 ### Array Subscript Index
 
 Accessing an array with an index that is out of bounds will cause a runtime crash in swift. 

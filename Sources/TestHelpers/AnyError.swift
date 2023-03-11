@@ -1,6 +1,6 @@
 import Foundation
 
-/// An equatable error.
+/// An equatable identifiable error.
 ///
 /// This can be used to test that a service throws the error passed to one of its dependencies.
 /// For example:
