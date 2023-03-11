@@ -4,7 +4,7 @@ import TestHelpers
 // MARK: - captureError
 
 extension XCTestCase {
-    func captureError(from block: () async throws -> Y) async -> Error? {
+    func captureError<T>(from block: () async throws -> T) async -> Error? {
         var capturedError: Error?
         do {
             _ = try await block()
