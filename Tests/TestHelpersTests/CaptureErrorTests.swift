@@ -20,12 +20,7 @@ final class CaptureErrorTests: XCTestCase {
         let error = AnyError()
         let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-        var capturedError: Error?
-        do {
-            _ = try await sut.fetchY()
-        } catch {
-            capturedError = error
-        }
+        let capturedError = await captureError(from: { try await sut.fetchY() })
 
         XCTAssertNotNil(error)
         XCTAssertEqual(capturedError as? AnyError, error)
