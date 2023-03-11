@@ -16,5 +16,9 @@ import Foundation
 /// }
 /// ```
 public struct AnyError: Error, Equatable, Identifiable {
-    public let id: UUID = .init()
+    public let id: UUID
+
+    public init(id: UUID = .init()) {
+        self.id = id
+    }
 }
