@@ -1,7 +1,7 @@
 import XCTest
 import TestHelpers
 
-final class TestHelpersTests: XCTestCase {
+final class ArraySubscriptIndexTests: XCTestCase {
     func test_outOfRange_index_example() throws {
         let array = [0, 1, 1, 2, 3, 5]
 
