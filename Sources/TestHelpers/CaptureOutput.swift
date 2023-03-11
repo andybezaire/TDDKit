@@ -26,12 +26,12 @@ import Combine
 ///   need to be considered.
 ///   - block: The action that should happen to cause the publisher to publish.
 /// - Returns: An array containing the output of the publisher.
-public func captureOutput<P, O>(
-    for publisher: P,
+public func captureOutput<Publisher, Output>(
+    for publisher: Publisher,
     droppingFirst dropCount: Int = 1,
     when block: () async -> Void
-) async -> [O] where P: Publisher, P.Failure == Never, P.Output == O {
-    var capturedOutput: [O] = []
+) async -> [Output] where Publisher: Combine.Publisher, Publisher.Failure == Never, Publisher.Output == Output {
+    var capturedOutput: [Output] = []
 
     let publishing = publisher
         .dropFirst(dropCount)

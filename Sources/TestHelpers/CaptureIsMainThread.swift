@@ -26,11 +26,11 @@ import Foundation
 ///   need to happen on the main thread.
 ///   - block: The action that should happen to cause the publisher to publish.
 /// - Returns: An array of `Bool`s indicating if the publishes were on the main thread.
-public func captureIsMainThread<P>(
-    for publisher: P,
+public func captureIsMainThread<Publisher>(
+    for publisher: Publisher,
     droppingFirst dropCount: Int = 1,
     when block: () async -> Void
-) async -> [Bool] where P: Publisher, P.Failure == Never {
+) async -> [Bool] where Publisher: Combine.Publisher, Publisher.Failure == Never {
     var capturedIsMainThread: [Bool] = []
 
     let publishing = publisher
