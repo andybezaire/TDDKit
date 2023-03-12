@@ -70,6 +70,53 @@ func test_failingFetchX_fetchY_fails() async throws {
 }
 ```
 
+### Capture is Main Thread
+
+Subscribing to a Publisher and managing the AnyCancellable in a test leads to a lot of typing, 
+and can distract from the main focus of the test.
+
+This function helps to make your code more clear. Put the actions which will cause the publishes
+in the block and `captureIsMainThread` will return the results.
+
+Usage:
+ 
+```swift
+func test_refreshTitle_publishesOnMainThread() async throws {
+    let (sut, _) = makeSUT()
+
+    let capturedIsMainThread = await captureIsMainThread(for: sut.$title) {
+        await sut.refreshTitle()
+    }
+
+    XCTAssertEqual(capturedIsMainThread.count, 1)
+    XCTAssertEqual(capturedIsMainThread[index: 0], true)
+}
+```
+
+### Capture Output
+
+Subscribing to a Publisher and managing the AnyCancellable in a test leads to a lot of typing, 
+and can distract from the main focus of the test.
+
+This function helps to make your code more clear. Put the actions which will cause the publishes
+in the block and `captureOutput` will return the results.
+
+Usage:
+ 
+```swift
+func test_refreshTitle_setsIsRefreshing() async throws {
+    let (sut, _) = makeSUT()
+
+    let capturedOutput = await captureOutput(for: sut.$isLoading) {
+        await sut.refreshTitle()
+    }
+
+    XCTAssertEqual(capturedOutput.count, 2)
+    XCTAssertEqual(capturedOutput[index: 0], true)
+    XCTAssertEqual(capturedOutput[index: 1], false)
+}
+```
+
 ### Expect Will Deallocate Instance
 
 Memory leaks occur when an object is not properly released from memory. 
