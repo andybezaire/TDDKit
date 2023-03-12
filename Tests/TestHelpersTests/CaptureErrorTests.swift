@@ -63,14 +63,14 @@ final class CaptureErrorTests: XCTestCase {
 }
 
 // MARK: - production
-struct X { }
+private struct X { }
 
-struct Y { }
-protocol YService {
+private struct Y { }
+private protocol YService {
     func fetchY() async throws -> Y
 }
 
-class XXYService: YService {
+private class XXYService: YService {
     private let fetchX: () async throws -> X
 
     init(fetchX: @escaping () async throws -> X) {
