@@ -1,5 +1,5 @@
 import XCTest
-import TestHelpers
+import TDDKit
 
 final class CaptureErrorTests: XCTestCase {
     func test_failingFetchX_fetchY_fails() async throws {

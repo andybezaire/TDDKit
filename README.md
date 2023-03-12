@@ -1,7 +1,7 @@
- <p> <a href="https://twitter.com/andy_bezaire"> <img src="https://img.shields.io/twitter/url?url=http%3A%2F%2Fgithub.com%2Fandybezaire%2FTestHelpers=" alt="Twitter: @andy_bezaire" /> </a> </p>
+ <p> <a href="https://twitter.com/andy_bezaire"> <img src="https://img.shields.io/twitter/url?url=http%3A%2F%2Fgithub.com%2Fandybezaire%2FTDDKit=" alt="Twitter: @andy_bezaire" /> </a> </p>
 
-# TestHelpers ![test status](https://github.com/andybezaire/TestHelpers/actions/workflows/swift.yml/badge.svg) ![license MIT](https://img.shields.io/github/license/andybezaire/TestHelpers)
-Some small helpers used to improve the testing experience.
+# TDDKit ![test status](https://github.com/andybezaire/TDDKit/actions/workflows/swift.yml/badge.svg) ![license MIT](https://img.shields.io/github/license/andybezaire/TDDKit)
+A grouping of helpers used to improve the testing experience.
 
 TDD is a great way to write code. It improves code quality and brings great joy.
 
@@ -158,8 +158,8 @@ For sample code showing how to use a helper function, check out the test code fo
 Add this package as a dependency to the test target of your Xcode project.
 
 1. Xcode Menu > File > Add Packages...
-1. Paste this project's URL to the "Search or Enter Package URL" field. (https://github.com/andybezaire/TestHelpers)
-1. Select `TestHelpers` product and add it to your project's **test target** Note: **NOT your main target.**
+1. Paste this project's URL to the "Search or Enter Package URL" field. (https://github.com/andybezaire/TDDKit)
+1. Select `TDDKit` product and add it to your project's **test target** Note: **NOT your main target.**
 1. Press "Add Package" button.
 
 ### Swift Package Manager (SPM)
@@ -176,11 +176,11 @@ let package = Package(
         .library(name: "SampleProduct", targets: ["SampleProduct"])
     ],
     dependencies: [
-        .package(name: "TestHelpers", url: "https://github.com/andybezaire/TestHelpers.git", from: "1.0.0")
+        .package(name: "TDDKit", url: "https://github.com/andybezaire/TDDKit.git", from: "1.0.0")
     ],
     targets: [
         .target(name: "SampleProduct", dependencies: []),
-        .testTarget(name: "SampleProductTests", dependencies: ["SampleProduct", "TestHelpers"])
+        .testTarget(name: "SampleProductTests", dependencies: ["SampleProduct", "TDDKit"])
     ]
 )
 ```
@@ -188,14 +188,14 @@ let package = Package(
 
 ## More Info and Feature Requests
 
-Please do not hesitate to open a [GitHub issue](https://github.com/andybezaire/TestHelpers/issues) 
+Please do not hesitate to open a [GitHub issue](https://github.com/andybezaire/TDDKit/issues) 
 for any questions or feature requests.  
 
 
 ## License
 
-"TestHelpers" is available under the MIT license. 
-See the [LICENSE](https://github.com/andybezaire/TestHelpers/blob/main/LICENSE) file for more info.
+"TDDKit" is available under the MIT license. 
+See the [LICENSE](https://github.com/andybezaire/TDDKit/blob/main/LICENSE) file for more info.
 
 
 ## Credit

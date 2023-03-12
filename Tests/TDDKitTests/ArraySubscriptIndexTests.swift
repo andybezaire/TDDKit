@@ -1,5 +1,5 @@
 import XCTest
-import TestHelpers
+import TDDKit
 
 final class ArraySubscriptIndexTests: XCTestCase {
     func test_outOfRange_index_example() throws {

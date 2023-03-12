@@ -2,14 +2,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "TestHelpers",
+    name: "TDDKit",
     platforms: [.macOS(.v10_15), .iOS(.v13)],
     products: [
-        .library(name: "TestHelpers", targets: ["TestHelpers"])
+        .library(name: "TDDKit", targets: ["TDDKit"])
     ],
     dependencies: [],
     targets: [
-        .target(name: "TestHelpers", dependencies: []),
-        .testTarget(name: "TestHelpersTests", dependencies: ["TestHelpers"])
+        .target(name: "TDDKit", dependencies: []),
+        .testTarget(name: "TDDKitTests", dependencies: ["TDDKit"])
     ]
 )

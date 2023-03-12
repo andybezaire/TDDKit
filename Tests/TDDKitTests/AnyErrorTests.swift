@@ -1,5 +1,5 @@
 import XCTest
-import TestHelpers
+import TDDKit
 
 final class AnyErrorTests: XCTestCase {
     func test_anyError_isEquatable() throws {
