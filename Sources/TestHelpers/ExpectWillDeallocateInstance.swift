@@ -42,7 +42,6 @@ extension XCTestCase {
     ///   The default is the line number where you call this function.
     public func expectWillDeallocate(instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
         addTeardownBlock { [weak instance] in
-            let description = String(describing: instance)
             XCTAssertNil(instance, "Should have been deallocated. Possible memory leak.", file: file, line: line)
         }
     }
