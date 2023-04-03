@@ -145,15 +145,15 @@ private func makeSUT(
 }
 ```
 
-### Cast Assert Equal
+### Not Nil Cast Assert Equal
 
-Sometimes and optional value needs to be compared with a real result. 
+Sometimes and optional value needs to be cast and compared with a real result. 
 If the cast is performed inside the assert equal, it is not clear if 
-the captured value is the wrong type or if it is nil. This can lead to 
+the captured value was the wrong type or if it was nil. This can lead to 
 using a separate assert is not nil check, adding boilerplate.
 
 This method will first check to see if the value is not nil and then 
-will perform the assert equal, giving nice error messages for each case.
+will perform the cast and assert equal, giving nice error messages for each case.
 
 Usage:
 
@@ -162,9 +162,9 @@ func test_failingFetchX_fetchY_fails() async throws {
     let error = AnyError()
     let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-    let capturedError = await captureError(from: try await sut.fetchY())
+    let capturedError: Error? = await captureError(from: try await sut.fetchY())
 
-    XCTCastAssertEqual(capturedError, error)
+    XCTNotNilCastAssertEqual(capturedError, error)
 }
 ```
 

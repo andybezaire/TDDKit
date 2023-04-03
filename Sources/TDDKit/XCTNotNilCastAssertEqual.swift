@@ -1,28 +1,28 @@
 import XCTest
 
 public extension XCTestCase {
-    /// Asserts that the first value can be cast to the type of the second value and they are equal.
+    /// Asserts that the first value is not nil and can be cast to the type of the second value and that they are equal.
     ///
-    /// Use this function to compare two values of different types, where the first type can be cast to the second type.
+    /// Use this function to compare two values of different types, where the first type is optional and can be cast to the second type.
     /// For example:
     /// ```
     /// func test_failingFetchX_fetchY_fails() async throws {
     ///     let error = AnyError()
     ///     let (sut, _) = makeSUT(fetchXResult: .failure(error))
     ///
-    ///     let capturedError = await captureError(from: try await sut.fetchY())
+    ///     let capturedError: Error? = await captureError(from: try await sut.fetchY())
     ///
-    ///     XCTCastAssertEqual(capturedError, error)
+    ///     XCTNotNilCastAssertEqual(capturedError, error)
     /// }
     /// ```
     ///
     /// - Parameters:
-    ///   - expression1: An expression of type V, where V will be cast to T.
+    ///   - expression1: An expression of type V?. This will be unwrapped and cast to T.
     ///   - expression2: An expression of type T, where T is Equatable.
     ///   - message: An optional description of a failure.
     ///   - file: The file where the failure occurs. The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs. The default is the line number where you call this function.
-    func XCTAssertNotNilEqual<V, T>(
+    func XCTNotNilCastAssertEqual<V, T>(
         _ expression1: @autoclosure () throws -> V?,
         _ expression2: @autoclosure () throws -> T,
         _ message: @autoclosure () -> String = "",

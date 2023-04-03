@@ -1,13 +1,13 @@
 import XCTest
 import TDDKit
 
-final class XCTAssertNotNilEqualTests: XCTestCase {
+final class XCTNotNilCastAssertEqualTests: XCTestCase {
     func test_successfulCast_example() throws {
         let error = AnyError()
 
         let capturedError: Error? = error
 
-        XCTAssertNotNilEqual(capturedError, error)
+        XCTNotNilCastAssertEqual(capturedError, error)
         XCTAssertEqual(capturedError as? AnyError, error)
     }
 
@@ -17,7 +17,7 @@ final class XCTAssertNotNilEqualTests: XCTestCase {
         let capturedError: Error? = nil
 
         XCTExpectFailure {
-            XCTAssertNotNilEqual(capturedError, error)
+            XCTNotNilCastAssertEqual(capturedError, error)
             XCTAssertEqual(capturedError as? AnyError, error)
         }
     }
@@ -29,7 +29,7 @@ final class XCTAssertNotNilEqualTests: XCTestCase {
         let capturedError: Error? = OtherError()
 
         XCTExpectFailure {
-            XCTAssertNotNilEqual(capturedError, error)
+            XCTNotNilCastAssertEqual(capturedError, error)
             XCTAssertEqual(capturedError as? AnyError, error)
         }
     }
@@ -40,7 +40,7 @@ final class XCTAssertNotNilEqualTests: XCTestCase {
         let capturedError: Error? = AnyError()
 
         XCTExpectFailure {
-            XCTAssertNotNilEqual(capturedError, error)
+            XCTNotNilCastAssertEqual(capturedError, error)
             XCTAssertEqual(capturedError as? AnyError, error)
         }
     }
@@ -51,7 +51,7 @@ final class XCTAssertNotNilEqualTests: XCTestCase {
         let throwing: () throws -> Error? = { throw AnyError() }
 
         try XCTExpectFailure {
-            XCTAssertNotNilEqual(try throwing(), error)
+            XCTNotNilCastAssertEqual(try throwing(), error)
             XCTAssertEqual(try throwing() as? AnyError, error)
         }
     }
