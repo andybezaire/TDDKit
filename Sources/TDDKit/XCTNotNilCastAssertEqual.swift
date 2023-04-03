@@ -42,10 +42,11 @@ public extension XCTestCase {
             }
             XCTAssertEqual(value, try expression2(), message(), file: file, line: line)
         } catch {
+            let optionalMessage = message()
+            let appendedMessage = optionalMessage.isEmpty ? "" : " - \(optionalMessage)"
             let issue: XCTIssue = .init(
                 type: .thrownError,
-                compactDescription: "XCTAssertNotNilEqual failed: threw error \"\(error)\" "
-                + message(),
+                compactDescription: "XCTAssertNotNilEqual failed: threw error \"\(error)\"" + appendedMessage,
                 sourceCodeContext: .init(location: .init(filePath: file, lineNumber: line))
             )
             record(issue)

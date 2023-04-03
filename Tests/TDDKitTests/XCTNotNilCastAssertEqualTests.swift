@@ -47,12 +47,25 @@ final class XCTNotNilCastAssertEqualTests: XCTestCase {
 
     func test_throwing_example() throws {
         let error = AnyError()
+        let thrownError = AnyError()
 
-        let throwing: () throws -> Error? = { throw AnyError() }
+        let throwing: () throws -> Error? = { throw thrownError }
 
         try XCTExpectFailure {
             XCTNotNilCastAssertEqual(try throwing(), error)
             XCTAssertEqual(try throwing() as? AnyError, error)
+        }
+    }
+
+    func test_throwingMessage_example() throws {
+        let error = AnyError()
+        let thrownError = AnyError()
+
+        let throwing: () throws -> Error? = { throw thrownError }
+
+        try XCTExpectFailure {
+            XCTNotNilCastAssertEqual(try throwing(), error, "Added message")
+            XCTAssertEqual(try throwing() as? AnyError, error, "Added message")
         }
     }
 }
