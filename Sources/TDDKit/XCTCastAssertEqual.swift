@@ -30,7 +30,13 @@ public extension XCTestCase {
         line: UInt = #line
     ) where T: Equatable {
         guard let value = (try? expression1()) as? T else {
-            XCTFail("Failed cast from type '\(V.self)' to '\(T.self)'" + message(), file: file, line: line)
+            let issue: XCTIssue = .init(
+                type: .assertionFailure,
+                compactDescription: "XCTCastAssertEqual failed: unable to cast from type '\(V.self)' to '\(T.self)' "
+                + message(),
+                sourceCodeContext: .init(location: .init(filePath: file, lineNumber: line))
+            )
+            record(issue)
             return
         }
         XCTAssertEqual(value, try expression2(), message(), file: file, line: line)
