@@ -30,7 +30,15 @@ public extension XCTestCase {
         line: UInt = #line
     ) where T: Equatable {
         do {
-            guard let value = (try expression1()) as? T else {
+            guard let unwrappedValue = (try expression1()) else {
+                let description = ["XCTCastAssertEqual failed: first value was nil", message()]
+                    .filter { !$0.isEmpty }
+                    .joined(separator: " - ")
+                let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
+                record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
+                return
+            }
+            guard let castValue = unwrappedValue as? T else {
                 let description = [
                     "XCTCastAssertEqual failed: unable to cast first value from type \"\(V.self)\" to \"\(T.self)\"",
                     message()
@@ -41,7 +49,7 @@ public extension XCTestCase {
                 record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
                 return
             }
-            XCTAssertEqual(value, try expression2(), message(), file: file, line: line)
+            XCTAssertEqual(castValue, try expression2(), message(), file: file, line: line)
         } catch {
             let description = ["XCTAssertNotNilEqual failed: threw error \"\(error)\"", message()]
                 .filter { !$0.isEmpty }
