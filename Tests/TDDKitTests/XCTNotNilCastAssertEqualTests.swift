@@ -57,8 +57,19 @@ final class XCTNotNilCastAssertEqualTests: XCTestCase {
         }
     }
 
-    // MARK: - message
-    func test_wrongTypeMessage_example() throws {
+    // MARK: - with message
+    func test_nilWithMessage_example() throws {
+        let error = AnyError()
+
+        let capturedError: Error? = nil
+
+        XCTExpectFailure {
+            XCTNotNilCastAssertEqual(capturedError, error, "Added message")
+            XCTAssertEqual(capturedError as? AnyError, error, "Added message")
+        }
+    }
+
+    func test_wrongTypeWithMessage_example() throws {
         struct OtherError: Error, Equatable { }
         let error = AnyError()
 
@@ -70,7 +81,7 @@ final class XCTNotNilCastAssertEqualTests: XCTestCase {
         }
     }
 
-    func test_sameTypeNotEqualMessage_example() throws {
+    func test_sameTypeNotEqualWithMessage_example() throws {
         let error = AnyError()
 
         let capturedError: Error? = AnyError()
@@ -81,7 +92,7 @@ final class XCTNotNilCastAssertEqualTests: XCTestCase {
         }
     }
 
-    func test_throwingMessage_example() throws {
+    func test_throwingWithMessage_example() throws {
         let error = AnyError()
         let thrownError = AnyError()
 
