@@ -145,7 +145,7 @@ private func makeSUT(
 }
 ```
 
-### Not Nil Cast Assert Equal
+### Cast Assert Equal
 
 Sometimes and optional value needs to be cast and compared with a real result. 
 If the cast is performed inside the assert equal, it is not clear if 
@@ -164,7 +164,7 @@ func test_failingFetchX_fetchY_fails() async throws {
 
     let capturedError: Error? = await captureError(from: try await sut.fetchY())
 
-    XCTNotNilCastAssertEqual(capturedError, error)
+    XCTCastAssertEqual(capturedError, error)
 }
 ```
 

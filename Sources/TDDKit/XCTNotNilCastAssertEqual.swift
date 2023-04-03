@@ -12,7 +12,7 @@ public extension XCTestCase {
     ///
     ///     let capturedError: Error? = await captureError(from: try await sut.fetchY())
     ///
-    ///     XCTNotNilCastAssertEqual(capturedError, error)
+    ///     XCTCastAssertEqual(capturedError, error)
     /// }
     /// ```
     ///
@@ -22,7 +22,7 @@ public extension XCTestCase {
     ///   - message: An optional description of a failure.
     ///   - file: The file where the failure occurs. The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs. The default is the line number where you call this function.
-    func XCTNotNilCastAssertEqual<V, T>(
+    func XCTCastAssertEqual<V, T>(
         _ expression1: @autoclosure () throws -> V?,
         _ expression2: @autoclosure () throws -> T,
         _ message: @autoclosure () -> String = "",
