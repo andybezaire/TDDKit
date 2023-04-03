@@ -41,7 +41,7 @@ final class XCTNotNilCastAssertEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTNotNilCastAssertEqual(capturedError, error)
-            XCTAssertEqual(capturedError as? AnyError, error)
+            XCTAssertEqual(capturedError as! AnyError, error)
         }
     }
 
@@ -77,7 +77,7 @@ final class XCTNotNilCastAssertEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTNotNilCastAssertEqual(capturedError, error, "Added message")
-            XCTAssertEqual(capturedError as? AnyError, error, "Added message")
+            XCTAssertEqual(capturedError as! AnyError, error, "Added message")
         }
     }
 
