@@ -31,13 +31,14 @@ public extension XCTestCase {
     ) where T: Equatable {
         do {
             guard let value = (try expression1()) as? T else {
-                let issue: XCTIssue = .init(
-                    type: .assertionFailure,
-                    compactDescription: "XCTCastAssertEqual failed: unable to cast first value " +
-                    "from type \"\(V.self)\" to \"\(T.self)\" " + message(),
-                    sourceCodeContext: .init(location: .init(filePath: file, lineNumber: line))
-                )
-                record(issue)
+                let description = [
+                    "XCTCastAssertEqual failed: unable to cast first value from type \"\(V.self)\" to \"\(T.self)\"",
+                    message()
+                ]
+                    .filter { !$0.isEmpty }
+                    .joined(separator: " - ")
+                let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
+                record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
                 return
             }
             XCTAssertEqual(value, try expression2(), message(), file: file, line: line)
@@ -46,9 +47,7 @@ public extension XCTestCase {
                 .filter { !$0.isEmpty }
                 .joined(separator: " - ")
             let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
-            record(
-                .init(type: .thrownError, compactDescription: description, sourceCodeContext: context)
-            )
+            record(.init(type: .thrownError, compactDescription: description, sourceCodeContext: context))
         }
     }
 }
