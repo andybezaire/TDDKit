@@ -23,22 +23,32 @@ public extension XCTestCase {
     ///   - file: The file where the failure occurs. The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs. The default is the line number where you call this function.
     func XCTAssertNotNilEqual<V, T>(
-        _ expression1: @autoclosure () throws -> V,
+        _ expression1: @autoclosure () throws -> V?,
         _ expression2: @autoclosure () throws -> T,
         _ message: @autoclosure () -> String = "",
         file: StaticString = #filePath,
         line: UInt = #line
     ) where T: Equatable {
-        guard let value = (try? expression1()) as? T else {
+        do {
+            guard let value = (try expression1()) as? T else {
+                let issue: XCTIssue = .init(
+                    type: .assertionFailure,
+                    compactDescription: "XCTCastAssertEqual failed: unable to cast from type  to '\(T.self)' "
+                    + message(),
+                    sourceCodeContext: .init(location: .init(filePath: file, lineNumber: line))
+                )
+                record(issue)
+                return
+            }
+            XCTAssertEqual(value, try expression2(), message(), file: file, line: line)
+        } catch {
             let issue: XCTIssue = .init(
-                type: .assertionFailure,
-                compactDescription: "XCTCastAssertEqual failed: unable to cast from type '\(V.self)' to '\(T.self)' "
+                type: .thrownError,
+                compactDescription: "XCTAssertNotNilEqual failed: threw error \"\(error)\" "
                 + message(),
                 sourceCodeContext: .init(location: .init(filePath: file, lineNumber: line))
             )
             record(issue)
-            return
         }
-        XCTAssertEqual(value, try expression2(), message(), file: file, line: line)
     }
 }
