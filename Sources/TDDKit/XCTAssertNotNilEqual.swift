@@ -33,8 +33,8 @@ public extension XCTestCase {
             guard let value = (try expression1()) as? T else {
                 let issue: XCTIssue = .init(
                     type: .assertionFailure,
-                    compactDescription: "XCTCastAssertEqual failed: unable to cast from type  to '\(T.self)' "
-                    + message(),
+                    compactDescription: "XCTCastAssertEqual failed: unable to cast first value " +
+                    "from type \"\(V.self)\" to \"\(T.self)\" " + message(),
                     sourceCodeContext: .init(location: .init(filePath: file, lineNumber: line))
                 )
                 record(issue)
