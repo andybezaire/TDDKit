@@ -57,6 +57,18 @@ final class XCTNotNilCastAssertEqualTests: XCTestCase {
         }
     }
 
+    // MARK: - message
+    func test_sameTypeNotEqualMessage_example() throws {
+        let error = AnyError()
+
+        let capturedError: Error? = AnyError()
+
+        XCTExpectFailure {
+            XCTNotNilCastAssertEqual(capturedError, error, "Added message")
+            XCTAssertEqual(capturedError as? AnyError, error, "Added message")
+        }
+    }
+
     func test_throwingMessage_example() throws {
         let error = AnyError()
         let thrownError = AnyError()
