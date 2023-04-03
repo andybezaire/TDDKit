@@ -22,7 +22,7 @@ public extension XCTestCase {
     ///   - message: An optional description of a failure.
     ///   - file: The file where the failure occurs. The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs. The default is the line number where you call this function.
-    func XCTCastAssertEqual<V, T>(
+    func XCTAssertNotNilEqual<V, T>(
         _ expression1: @autoclosure () throws -> V,
         _ expression2: @autoclosure () throws -> T,
         _ message: @autoclosure () -> String = "",
