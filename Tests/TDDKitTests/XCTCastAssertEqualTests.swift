@@ -3,27 +3,31 @@ import TDDKit
 
 final class XCTCastAssertEqualTests: XCTestCase {
     func test_successfulCast_example() throws {
-        let anyError = AnyError()
-        let error: Error = anyError
+        let error = AnyError()
 
-        XCTCastAssertEqual(error, anyError)
+        let capturedError: Error? = error
+
+        XCTCastAssertEqual(capturedError, error)
     }
 
     func test_failedCast_example() throws {
         struct NotCastable: Error, Equatable { }
-        let notCastable = NotCastable()
+        let error = NotCastable()
+
+        let capturedError: Error? = AnyError()
 
         XCTExpectFailure {
-            XCTCastAssertEqual(AnyError(), notCastable)
+            XCTCastAssertEqual(capturedError, error)
         }
     }
 
     func test_successfulCastNotEqual_example() throws {
         let error = AnyError()
-        let anotherError = AnyError()
+
+        let capturedError: Error? = AnyError()
 
         XCTExpectFailure {
-            XCTCastAssertEqual(anotherError, error)
+            XCTCastAssertEqual(capturedError, error)
         }
     }
 }
