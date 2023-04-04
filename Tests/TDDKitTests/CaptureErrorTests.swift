@@ -48,8 +48,8 @@ final class CaptureErrorTests: XCTestCase {
         let spy = Spy(fetchXResult: fetchXResult)
         let sut = XXYService(fetchX: spy.fetchX)
 
-        expectWillDeallocate(instance: sut, file: file, line: line)
-        expectWillDeallocate(instance: spy, file: file, line: line)
+        XCTAssertWillDeallocate(instance: sut, file: file, line: line)
+        XCTAssertWillDeallocate(instance: spy, file: file, line: line)
         return (sut, spy)
     }
 

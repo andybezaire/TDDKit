@@ -37,8 +37,8 @@ final class CaptureOutputTests: XCTestCase {
         let spy = Spy(fetchTitleResult: fetchTitleResult)
         let sut = ViewModel(service: spy, initialTitle: initialTitle)
 
-        expectWillDeallocate(instance: sut, file: file, line: line)
-        expectWillDeallocate(instance: spy, file: file, line: line)
+        XCTAssertWillDeallocate(instance: sut, file: file, line: line)
+        XCTAssertWillDeallocate(instance: spy, file: file, line: line)
 
         return (sut, spy)
     }

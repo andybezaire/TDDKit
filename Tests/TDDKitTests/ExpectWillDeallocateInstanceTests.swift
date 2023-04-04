@@ -9,8 +9,8 @@ final class ExpectWillDeallocateInstanceTests: XCTestCase {
 
         XCTExpectFailure()
 
-        expectWillDeallocate(instance: sut)
-        expectWillDeallocate(instance: spy)
+        XCTAssertWillDeallocate(instance: sut)
+        XCTAssertWillDeallocate(instance: spy)
     }
 
     func test_selfReferencing_example() throws {
@@ -19,7 +19,7 @@ final class ExpectWillDeallocateInstanceTests: XCTestCase {
 
         XCTExpectFailure()
 
-        expectWillDeallocate(instance: sut)
+        XCTAssertWillDeallocate(instance: sut)
     }
 
     // MARK: - helpers

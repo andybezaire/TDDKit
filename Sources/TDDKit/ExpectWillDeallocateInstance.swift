@@ -27,8 +27,8 @@ public extension XCTestCase {
     ///     let spy = Spy(userLoginResult: userLoginResult)
     ///     let sut = LoginFlow(service: spy)
     ///
-    ///     expectWillDeallocate(for: sut, file: file, line: line)
-    ///     expectWillDeallocate(for: spy, file: file, line: line)
+    ///     XCTAssertWillDeallocate(for: sut, file: file, line: line)
+    ///     XCTAssertWillDeallocate(for: spy, file: file, line: line)
     ///
     ///     return (sut, spy)
     /// }
@@ -40,7 +40,7 @@ public extension XCTestCase {
     ///   The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs.
     ///   The default is the line number where you call this function.
-    func expectWillDeallocate(instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
+    func XCTAssertWillDeallocate(instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
         addTeardownBlock { [weak instance] in
             XCTAssertNil(instance, "Should have been deallocated. Possible memory leak.", file: file, line: line)
         }
