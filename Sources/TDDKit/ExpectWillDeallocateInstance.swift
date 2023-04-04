@@ -40,9 +40,23 @@ public extension XCTestCase {
     ///   The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs.
     ///   The default is the line number where you call this function.
-    func XCTAssertWillDeallocate(instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
+    func XCTAssertWillDeallocate(
+        instance: AnyObject,
+        _ message: @escaping @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
         addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Should have been deallocated. Possible memory leak.", file: file, line: line)
+            if let instance {
+                let description = [
+                    "XCTAssertWillDeallocate failed: should have been deallocated \"\(String(describing: instance))\"",
+                    message()
+                ]
+                    .filter { !$0.isEmpty }
+                    .joined(separator: " - ")
+                let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
+                self.record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
+            }
         }
     }
 }
