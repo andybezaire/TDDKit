@@ -17,8 +17,8 @@ public extension XCTestCase {
     /// ```
     ///
     /// - Parameters:
-    ///   - expression1: An expression of type V?. This will be unwrapped and cast to T.
-    ///   - expression2: An expression of type T, where T is Equatable.
+    ///   - expression1: An expression of type `V?`. This will be unwrapped and cast to `T`.
+    ///   - expression2: An expression of type T`, where `T` is `Equatable`.
     ///   - message: An optional description of a failure.
     ///   - file: The file where the failure occurs. The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs. The default is the line number where you call this function.
