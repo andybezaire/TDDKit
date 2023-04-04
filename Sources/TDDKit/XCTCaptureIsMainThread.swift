@@ -11,7 +11,7 @@ public extension XCTestCase {
     /// func test_refreshTitle_publishesOnMainThread() async throws {
     ///     let (sut, _) = makeSUT()
     ///
-    ///     let capturedIsMainThread = await captureIsMainThread(for: sut.$title) {
+    ///     let capturedIsMainThread = await XCTCaptureIsMainThread(for: sut.$title) {
     ///         await sut.refreshTitle()
     ///     }
     ///
@@ -28,7 +28,7 @@ public extension XCTestCase {
     ///   need to happen on the main thread.
     ///   - block: The action that should happen to cause the publisher to publish.
     /// - Returns: An array of `Bool`s indicating if the publishes were on the main thread.
-    func captureIsMainThread<Publisher>(
+    func XCTCaptureIsMainThread<Publisher>(
         for publisher: Publisher,
         droppingFirst dropCount: Int = 1,
         when block: () async -> Void

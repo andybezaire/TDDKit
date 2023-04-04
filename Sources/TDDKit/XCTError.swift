@@ -8,16 +8,16 @@ public extension XCTestCase {
     /// For example:
     /// ```
     /// func test_failingFetchX_fetchY_fails() async throws {
-    ///     let error = AnyError()
+    ///     let error = XCTError()
     ///     let (sut, _) = makeSUT(fetchXResult: .failure(error))
     ///
     ///     let capturedError = await XCTCaptureError(from: try await sut.fetchY())
     ///
     ///     XCTAssertNotNil(error)
-    ///     XCTAssertEqual(capturedError as? AnyError, error)
+    ///     XCTAssertEqual(capturedError as? XCTError, error)
     /// }
     /// ```
-    struct AnyError: Error, Equatable, Identifiable {
+    struct XCTError: Error, Equatable, Identifiable {
         public let id: UUID
 
         public init(id: UUID = .init()) {

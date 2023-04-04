@@ -1,9 +1,9 @@
 import XCTest
 import TDDKit
 
-final class CaptureErrorTests: XCTestCase {
+final class XCTCaptureErrorTests: XCTestCase {
     func test_failingFetchX_fetchY_fails() async throws {
-        let error = AnyError()
+        let error = XCTError()
         let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
         let capturedError = await XCTCaptureError(from: try await sut.fetchY())
@@ -21,7 +21,7 @@ final class CaptureErrorTests: XCTestCase {
     }
 
     func test_failingBlock_captureError_succeeds() async throws {
-        let error = AnyError()
+        let error = XCTError()
         let block: () async throws -> Void = { throw error }
 
         let capturedError = await XCTCaptureError(from: try await block())

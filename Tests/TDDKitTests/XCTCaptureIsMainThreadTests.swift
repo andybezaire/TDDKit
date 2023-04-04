@@ -2,31 +2,29 @@ import XCTest
 import TDDKit
 
 @MainActor
-final class CaptureOutputTests: XCTestCase {
-    func test_failingFetch_refreshTitle_setsIsRefreshing() async throws {
-        let (sut, _) = makeSUT(fetchTitleResult: .failure(AnyError()))
+final class XCTCaptureIsMainThreadTests: XCTestCase {
+    func test_failingFetch_refreshTitle_publishesOnMainThread() async throws {
+        let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTError()))
 
-        let capturedOutput = await captureOutput(for: sut.$isLoading) {
+        let capturedIsMainThread = await XCTCaptureIsMainThread(for: sut.$title) {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedOutput.count, 2)
-        XCTAssertEqual(capturedOutput[index: 0], true)
-        XCTAssertEqual(capturedOutput[index: 1], false)
+        XCTAssertEqual(capturedIsMainThread.count, 1)
+        XCTAssertEqual(capturedIsMainThread[xctIndex: 0], true)
     }
 
-    func test_refreshTitle_setsIsRefreshing() async throws {
+    func test_refreshTitle_publishesOnMainThread() async throws {
         let (sut, _) = makeSUT()
 
-        let capturedOutput = await captureOutput(for: sut.$isLoading) {
+        let capturedIsMainThread = await XCTCaptureIsMainThread(for: sut.$title) {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedOutput.count, 2)
-        XCTAssertEqual(capturedOutput[index: 0], true)
-        XCTAssertEqual(capturedOutput[index: 1], false)
+        XCTAssertEqual(capturedIsMainThread.count, 1)
+        XCTAssertEqual(capturedIsMainThread[xctIndex: 0], true)
     }
-    
+
     // MARK: - helpers
     private func makeSUT(
         fetchTitleResult: Result<String, Error> = .success("Title"),
@@ -76,11 +74,8 @@ private class ViewModel: ObservableObject {
     }
 
     @Published private(set) var title: String
-    @Published private(set) var isLoading: Bool = false
 
     @Sendable func refreshTitle() async {
-        isLoading = true
         title = (try? await service.fetchTitle()) ?? ""
-        isLoading = false
     }
 }

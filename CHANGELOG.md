@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Capture Error returns optional and renamed
 - Assert Will Deallocate renamed
+- Capture Output renamed
+- Capture is Main Thread renamed
+- Index Array Subscript renamed
+- XCTError renamed
 ### Removed
 
 ## [1.4.0] - 2023-03-12

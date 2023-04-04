@@ -10,7 +10,7 @@ public extension XCTestCase {
     /// func test_refreshTitle_setsIsRefreshing() async throws {
     ///     let (sut, _) = makeSUT()
     ///
-    ///     let capturedOutput = await captureOutput(for: sut.$isLoading) {
+    ///     let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
     ///         await sut.refreshTitle()
     ///     }
     ///
@@ -28,7 +28,7 @@ public extension XCTestCase {
     ///   need to be considered.
     ///   - block: The action that should happen to cause the publisher to publish.
     /// - Returns: An array containing the output of the publisher.
-    func captureOutput<Publisher, Output>(
+    func XCTCaptureOutput<Publisher, Output>(
         for publisher: Publisher,
         droppingFirst dropCount: Int = 1,
         when block: () async -> Void
