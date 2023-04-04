@@ -8,11 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+### Fixed
+### Changed
+### Removed
+
+## [1.5.0] - 2023-04-04
+
+### Added
 - Cast Assert Equal
 - Count Assert Equal
 - [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-### Fixed
 ### Changed
 - Capture Error returns optional and renamed
 - Assert Will Deallocate renamed
@@ -20,7 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Capture is Main Thread renamed
 - Index Array Subscript renamed
 - XCTError renamed
-### Removed
 
 ## [1.4.0] - 2023-03-12
 
@@ -56,7 +61,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Expect Will Deallocate Instance
 
 
-[unreleased]: https://github.com/andybezaire/TDDKit/compare/v1.4.0...HEAD
+[unreleased]: https://github.com/andybezaire/TDDKit/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/andybezaire/TDDKit/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/andybezaire/TDDKit/compare/v1.3.0...v1.4.0
 [1.3.1]: https://github.com/andybezaire/TDDKit/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/andybezaire/TDDKit/compare/v1.2.0...v1.3.0
