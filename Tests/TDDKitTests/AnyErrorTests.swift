@@ -7,6 +7,14 @@ final class AnyErrorTests: XCTestCase {
         let error2 = AnyError()
 
         XCTAssertEqual(error1, error1)
-        XCTAssertNotEqual(error1, error2)
+        XCTExpectFailure {
+            XCTAssertEqual(error1, error2)
+        }
+    }
+
+    func test_anyError_throwsError() throws {
+        try XCTExpectFailure {
+            throw AnyError()
+        }
     }
 }
