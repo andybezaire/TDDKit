@@ -31,6 +31,29 @@ final class XCTCountAssertEqualTests: XCTestCase {
             XCTAssertEqual(a, b)
         }
     }
+
+    // MARK: - with message
+    func test_differentSizedArraysWithMessage_example() {
+        let a = ["one", "two", "three"]
+        let b = ["one", "two"]
+
+        XCTExpectFailure {
+            XCTCountAssertEqual(a, b, "Added message")
+            XCTAssertEqual(a.count, b.count, "Added message")
+            XCTAssertEqual(a, b, "Added message")
+        }
+    }
+
+    func test_differentArraysWithMessage_example() {
+        let a = ["one", "two", "three"]
+        let b = ["one", "two", "four"]
+
+        XCTExpectFailure {
+            XCTCountAssertEqual(a, b, "Added message")
+            XCTAssertEqual(a.count, b.count, "Added message")
+            XCTAssertEqual(a, b, "Added message")
+        }
+    }
 }
 
 extension XCTestCase {
