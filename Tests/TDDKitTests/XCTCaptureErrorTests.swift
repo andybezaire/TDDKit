@@ -1,32 +1,42 @@
 import XCTest
 import TDDKit
 
-final class CaptureErrorTests: XCTestCase {
+final class XCTCaptureErrorTests: XCTestCase {
     func test_failingFetchX_fetchY_fails() async throws {
-        let error = AnyError()
+        let error = XCTError()
         let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-        let capturedError: Error = await captureError(from: try await sut.fetchY())
+        let capturedError = await XCTCaptureError(from: try await sut.fetchY())
 
-        XCTAssertEqual(capturedError as? AnyError, error)
+        XCTCastAssertEqual(capturedError, error)
     }
 
     func test_succedingBlock_captureError_fails() async throws {
         let block: () async throws -> Void = { }
 
         XCTExpectFailure()
-        let capturedError = await self.captureError(from: try await block())
+        let capturedError = await XCTCaptureError(from: try await block())
 
-        XCTAssertEqual(capturedError as? CaptureError, .noErrorThrown)
+        XCTAssertNil(capturedError)
     }
 
     func test_failingBlock_captureError_succeeds() async throws {
-        let error = AnyError()
+        let error = XCTError()
         let block: () async throws -> Void = { throw error }
 
-        let capturedError = await captureError(from: try await block())
+        let capturedError = await XCTCaptureError(from: try await block())
 
-        XCTAssertEqual(capturedError as? AnyError, error)
+        XCTCastAssertEqual(capturedError, error)
+    }
+
+    // MARK: - With message
+    func test_succedingBlockWithMessage_captureError_fails() async throws {
+        let block: () async throws -> Void = { }
+
+        XCTExpectFailure()
+        let capturedError = await XCTCaptureError(from: try await block(), "Added message")
+
+        XCTAssertNil(capturedError)
     }
 
     // MARK: - helpers
@@ -38,8 +48,8 @@ final class CaptureErrorTests: XCTestCase {
         let spy = Spy(fetchXResult: fetchXResult)
         let sut = XXYService(fetchX: spy.fetchX)
 
-        expectWillDeallocate(instance: sut, file: file, line: line)
-        expectWillDeallocate(instance: spy, file: file, line: line)
+        XCTAssertWillDeallocate(instance: sut, file: file, line: line)
+        XCTAssertWillDeallocate(instance: spy, file: file, line: line)
         return (sut, spy)
     }
 

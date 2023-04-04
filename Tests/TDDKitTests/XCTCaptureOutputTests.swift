@@ -2,29 +2,31 @@ import XCTest
 import TDDKit
 
 @MainActor
-final class CaptureIsMainThreadTests: XCTestCase {
-    func test_failingFetch_refreshTitle_publishesOnMainThread() async throws {
-        let (sut, _) = makeSUT(fetchTitleResult: .failure(AnyError()))
+final class XCTCaptureOutputTests: XCTestCase {
+    func test_failingFetch_refreshTitle_setsIsRefreshing() async throws {
+        let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTError()))
 
-        let capturedIsMainThread = await captureIsMainThread(for: sut.$title) {
+        let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedIsMainThread.count, 1)
-        XCTAssertEqual(capturedIsMainThread[index: 0], true)
+        XCTAssertEqual(capturedOutput.count, 2)
+        XCTAssertEqual(capturedOutput[xctIndex: 0], true)
+        XCTAssertEqual(capturedOutput[xctIndex: 1], false)
     }
 
-    func test_refreshTitle_publishesOnMainThread() async throws {
+    func test_refreshTitle_setsIsRefreshing() async throws {
         let (sut, _) = makeSUT()
 
-        let capturedIsMainThread = await captureIsMainThread(for: sut.$title) {
+        let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedIsMainThread.count, 1)
-        XCTAssertEqual(capturedIsMainThread[index: 0], true)
+        XCTAssertEqual(capturedOutput.count, 2)
+        XCTAssertEqual(capturedOutput[xctIndex: 0], true)
+        XCTAssertEqual(capturedOutput[xctIndex: 1], false)
     }
-
+    
     // MARK: - helpers
     private func makeSUT(
         fetchTitleResult: Result<String, Error> = .success("Title"),
@@ -35,8 +37,8 @@ final class CaptureIsMainThreadTests: XCTestCase {
         let spy = Spy(fetchTitleResult: fetchTitleResult)
         let sut = ViewModel(service: spy, initialTitle: initialTitle)
 
-        expectWillDeallocate(instance: sut, file: file, line: line)
-        expectWillDeallocate(instance: spy, file: file, line: line)
+        XCTAssertWillDeallocate(instance: sut, file: file, line: line)
+        XCTAssertWillDeallocate(instance: spy, file: file, line: line)
 
         return (sut, spy)
     }
@@ -74,8 +76,11 @@ private class ViewModel: ObservableObject {
     }
 
     @Published private(set) var title: String
+    @Published private(set) var isLoading: Bool = false
 
     @Sendable func refreshTitle() async {
+        isLoading = true
         title = (try? await service.fetchTitle()) ?? ""
+        isLoading = false
     }
 }

@@ -13,25 +13,24 @@ They can help with writing tests that are clear and reduce boilerplate code.
 
 ## Helpers
 
-### Any Error
+### Error
 
-This Equatable Identifiable Error can be used to help test errors thrown by dependencies.
+This `Equatable` `Identifiable` `Error` can be used to help test errors thrown by dependencies.
 
 Usage:
 
 ```swift
 func test_failingFetchX_fetchY_fails() async throws {
-    let error = AnyError()
+    let error = XCTError()
     let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-    let capturedError = await captureError(from: try await sut.fetchY())
+    let capturedError = await XCTCaptureError(from: try await sut.fetchY())
 
-    XCTAssertNotNil(error)
-    XCTAssertEqual(capturedError as? AnyError, error)
+    XCTCastAssertEqual(capturedError, error)
 }
 ```
 
-### Array Subscript Index
+### Index Array Subscript
 
 Accessing an array with an index that is out of bounds will cause a runtime crash in swift. 
 If this happens in a test, the default Xcode settings will pause execution and open the debugger. 
@@ -47,7 +46,7 @@ let (sut, spy) = makeSUT()
 sut.doLogin()
 
 XCTAssertEqual(spy.messages.count, 1)
-XCTAssertEqual(spy.messages[index: 0], .userLogin)
+XCTAssertEqual(spy.messages[xctIndex: 0], .userLogin)
 ```
 
 ### Capture Error
@@ -61,22 +60,22 @@ Usage:
  
 ```swift
 func test_failingFetchX_fetchY_fails() async throws {
-    let error = AnyError()
+    let error = XCTError()
     let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-    let capturedError = await captureError(from: try await sut.fetchY())
+    let capturedError = await XCTCaptureError(from: try await sut.fetchY())
 
-    XCTAssertEqual(capturedError as? AnyError, error)
+    XCTCastAssertEqual(capturedError, error)
 }
 ```
 
 ### Capture is Main Thread
 
-Subscribing to a Publisher and managing the AnyCancellable in a test leads to a lot of typing, 
+Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
 and can distract from the main focus of the test.
 
 This function helps to make your code more clear. Put the actions which will cause the publishes
-in the block and `captureIsMainThread` will return the results.
+in the block and `XCTCaptureIsMainThread` will return the results.
 
 Usage:
  
@@ -84,22 +83,21 @@ Usage:
 func test_refreshTitle_publishesOnMainThread() async throws {
     let (sut, _) = makeSUT()
 
-    let capturedIsMainThread = await captureIsMainThread(for: sut.$title) {
+    let capturedIsMainThread = await XCTCaptureIsMainThread(for: sut.$title) {
         await sut.refreshTitle()
     }
 
-    XCTAssertEqual(capturedIsMainThread.count, 1)
-    XCTAssertEqual(capturedIsMainThread[index: 0], true)
+    XCTCountAssertEqual(capturedIsMainThread, [true])
 }
 ```
 
 ### Capture Output
 
-Subscribing to a Publisher and managing the AnyCancellable in a test leads to a lot of typing, 
+Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
 and can distract from the main focus of the test.
 
 This function helps to make your code more clear. Put the actions which will cause the publishes
-in the block and `captureOutput` will return the results.
+in the block and `XCTCaptureOutput` will return the results.
 
 Usage:
  
@@ -107,24 +105,22 @@ Usage:
 func test_refreshTitle_setsIsRefreshing() async throws {
     let (sut, _) = makeSUT()
 
-    let capturedOutput = await captureOutput(for: sut.$isLoading) {
+    let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
         await sut.refreshTitle()
     }
 
-    XCTAssertEqual(capturedOutput.count, 2)
-    XCTAssertEqual(capturedOutput[index: 0], true)
-    XCTAssertEqual(capturedOutput[index: 1], false)
+    XCTCountAssertEqual(capturedOutput, [true, false])
 }
 ```
 
-### Expect Will Deallocate Instance
+### Assert Will Deallocate Instance
 
 Memory leaks occur when an object is not properly released from memory. 
 This often happens when mistakenly creating a circular strong reference.
 
 This method will help to catch these kinds of errors by making sure 
 that your object has been deallocated by the end of the test. 
-It is most useful to use it in your makeSUT method.
+It is most useful to use it in your `makeSUT` method.
 
 Usage:
 
@@ -138,8 +134,8 @@ private func makeSUT(
     let spy = Spy(userLoginResult: userLoginResult)
     let sut = LoginFlow(service: spy)
 
-    expectWillDeallocate(for: sut, file: file, line: line)
-    expectWillDeallocate(for: spy, file: file, line: line)
+    XCTAssertWillDeallocate(for: sut, file: file, line: line)
+    XCTAssertWillDeallocate(for: spy, file: file, line: line)
 
     return (sut, spy)
 }
@@ -159,12 +155,35 @@ Usage:
 
 ```swift
 func test_failingFetchX_fetchY_fails() async throws {
-    let error = AnyError()
+    let error = XCTError()
     let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-    let capturedError: Error? = await captureError(from: try await sut.fetchY())
+    let capturedError = await XCTCaptureError(from: try await sut.fetchY())
 
     XCTCastAssertEqual(capturedError, error)
+}
+```
+
+### Count Assert Equal
+
+When comparing two collections for equality, sometimes it is not clear if 
+the captured collection was the wrong size or if it had differnt values. This can lead to 
+using a separate assert to compare the `count`s, adding boilerplate.
+
+This method will first check to see if the collections have the same `count` and then 
+will assert equal on the elements, giving nice error messages for each case.
+
+Usage:
+```swift
+func test_fetch_succeeds() async throws {
+    let valuesSet = uniqueValuesSet()
+    let values = valuesSet.map(\.value)
+    let responses = valuesSet.map(\.response)
+    let (sut, _) = makeSUT(fetchResult: .success(responses))
+
+    let capturedValues = try await sut.fetch()
+
+    XCTCountAssertEqual(capturedValues, values)
 }
 ```
 

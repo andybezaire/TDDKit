@@ -1,7 +1,7 @@
 import XCTest
 import TDDKit
 
-final class ExpectWillDeallocateInstanceTests: XCTestCase {
+final class XCTAssertWillDeallocateInstanceTests: XCTestCase {
     func test_circularReference_example() throws {
         let spy = Instance()
         let sut = Instance(reference: spy)
@@ -9,8 +9,8 @@ final class ExpectWillDeallocateInstanceTests: XCTestCase {
 
         XCTExpectFailure()
 
-        expectWillDeallocate(instance: sut)
-        expectWillDeallocate(instance: spy)
+        XCTAssertWillDeallocate(instance: sut)
+        XCTAssertWillDeallocate(instance: spy)
     }
 
     func test_selfReferencing_example() throws {
@@ -19,7 +19,7 @@ final class ExpectWillDeallocateInstanceTests: XCTestCase {
 
         XCTExpectFailure()
 
-        expectWillDeallocate(instance: sut)
+        XCTAssertWillDeallocate(instance: sut)
     }
 
     // MARK: - helpers

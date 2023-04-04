@@ -9,10 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Cast Assert Equal
+- Count Assert Equal
 - [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Fixed
 ### Changed
+- Capture Error returns optional and renamed
+- Assert Will Deallocate renamed
+- Capture Output renamed
+- Capture is Main Thread renamed
+- Index Array Subscript renamed
+- XCTError renamed
 ### Removed
 
 ## [1.4.0] - 2023-03-12

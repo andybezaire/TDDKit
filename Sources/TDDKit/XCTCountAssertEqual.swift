@@ -1,46 +1,42 @@
 import XCTest
 
 public extension XCTestCase {
-    /// Asserts that the first value is not nil and can be cast to the type of the second value and that they are equal.
+    /// Asserts that the collections are the same size and that they are equal.
     ///
-    /// Use this function to compare two values of different types, where the first type is optional and can be cast to the second type.
+    /// Use this function to compare two collections to see if they are the same size and equal.
     /// For example:
     /// ```
-    /// func test_failingFetchX_fetchY_fails() async throws {
-    ///     let error = AnyError()
-    ///     let (sut, _) = makeSUT(fetchXResult: .failure(error))
+    /// func test_fetch_succeeds() async throws {
+    ///     let valuesSet = uniqueValuesSet()
+    ///     let values = valuesSet.map(\.value)
+    ///     let responses = valuesSet.map(\.response)
+    ///     let (sut, _) = makeSUT(fetchResult: .success(responses))
     ///
-    ///     let capturedError: Error? = await captureError(from: try await sut.fetchY())
+    ///     let capturedValues = try await sut.fetch()
     ///
-    ///     XCTCastAssertEqual(capturedError, error)
+    ///     XCTCountAssertEqual(capturedValues, values)
     /// }
     /// ```
     ///
     /// - Parameters:
-    ///   - expression1: An expression of type V?. This will be unwrapped and cast to T.
-    ///   - expression2: An expression of type T, where T is Equatable.
+    ///   - expression1: An expression of type `T`, where `T` is an `Equatable` `Collection`.
+    ///   - expression2: A second expression of type `T`, where `T` is an `Equatable` `Collection`.
     ///   - message: An optional description of a failure.
     ///   - file: The file where the failure occurs. The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs. The default is the line number where you call this function.
-    func XCTCastAssertEqual<V, T>(
-        _ expression1: @autoclosure () throws -> V?,
+    func XCTCountAssertEqual<T>(
+        _ expression1: @autoclosure () throws -> T,
         _ expression2: @autoclosure () throws -> T,
         _ message: @autoclosure () -> String = "",
         file: StaticString = #filePath,
         line: UInt = #line
-    ) where T: Equatable {
+    ) where T: Collection, T: Equatable {
         do {
-            guard let unwrappedValue = (try expression1()) else {
-                let description = ["XCTCastAssertEqual failed: first value was nil", message()]
-                    .filter { !$0.isEmpty }
-                    .joined(separator: " - ")
-                let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
-                record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
-                return
-            }
-            guard let castValue = unwrappedValue as? T else {
+            let value1 = try expression1()
+            let value2 = try expression2()
+            guard value1.count == value2.count else {
                 let description = [
-                    "XCTCastAssertEqual failed: unable to cast first value from type \"\(V.self)\" to \"\(T.self)\"",
+                    "XCTAssertEqual failed: count (\"\(value1.count)\") is not equal to (\"\(value2.count)\") for (\"\(value1)\") is not equal to (\"\(value2)\")",
                     message()
                 ]
                     .filter { !$0.isEmpty }
@@ -49,7 +45,17 @@ public extension XCTestCase {
                 record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
                 return
             }
-            XCTAssertEqual(castValue, try expression2(), message(), file: file, line: line)
+            guard value1 == value2 else {
+                let description = [
+                    "XCTAssertEqual failed: (\"\(value1)\") is not equal to (\"\(value2)\")",
+                    message()
+                ]
+                    .filter { !$0.isEmpty }
+                    .joined(separator: " - ")
+                let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
+                record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
+                return
+            }
         } catch {
             let description = ["XCTAssertNotNilEqual failed: threw error \"\(error)\"", message()]
                 .filter { !$0.isEmpty }
