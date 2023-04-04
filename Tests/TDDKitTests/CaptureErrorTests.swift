@@ -6,7 +6,7 @@ final class CaptureErrorTests: XCTestCase {
         let error = AnyError()
         let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-        let capturedError = await captureError(from: try await sut.fetchY())
+        let capturedError = await XCTCaptureError(from: try await sut.fetchY())
 
         XCTCastAssertEqual(capturedError, error)
     }
@@ -15,7 +15,7 @@ final class CaptureErrorTests: XCTestCase {
         let block: () async throws -> Void = { }
 
         XCTExpectFailure()
-        let capturedError = await captureError(from: try await block())
+        let capturedError = await XCTCaptureError(from: try await block())
 
         XCTAssertNil(capturedError)
     }
@@ -24,7 +24,7 @@ final class CaptureErrorTests: XCTestCase {
         let error = AnyError()
         let block: () async throws -> Void = { throw error }
 
-        let capturedError = await captureError(from: try await block())
+        let capturedError = await XCTCaptureError(from: try await block())
 
         XCTCastAssertEqual(capturedError, error)
     }
@@ -34,7 +34,7 @@ final class CaptureErrorTests: XCTestCase {
         let block: () async throws -> Void = { }
 
         XCTExpectFailure()
-        let capturedError = await captureError(from: try await block(), "Added message")
+        let capturedError = await XCTCaptureError(from: try await block(), "Added message")
 
         XCTAssertNil(capturedError)
     }

@@ -9,7 +9,7 @@ import Foundation
 ///     let error = AnyError()
 ///     let (sut, _) = makeSUT(fetchXResult: .failure(error))
 ///
-///     let capturedError = await captureError(from: try await sut.fetchY())
+///     let capturedError = await XCTCaptureError(from: try await sut.fetchY())
 ///
 ///     XCTAssertNotNil(error)
 ///     XCTAssertEqual(capturedError as? AnyError, error)

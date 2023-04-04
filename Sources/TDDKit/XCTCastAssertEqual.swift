@@ -10,7 +10,7 @@ public extension XCTestCase {
     ///     let error = AnyError()
     ///     let (sut, _) = makeSUT(fetchXResult: .failure(error))
     ///
-    ///     let capturedError: Error? = await captureError(from: try await sut.fetchY())
+    ///     let capturedError: Error? = await XCTCaptureError(from: try await sut.fetchY())
     ///
     ///     XCTCastAssertEqual(capturedError, error)
     /// }
