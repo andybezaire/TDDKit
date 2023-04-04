@@ -1,6 +1,6 @@
 import XCTest
 
-extension XCTestCase {
+public extension XCTestCase {
     /// Fail a test if the instance was not deallocted.
     ///
     /// Memory leaks occur when an object is not properly released from memory.
@@ -40,7 +40,7 @@ extension XCTestCase {
     ///   The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs.
     ///   The default is the line number where you call this function.
-    public func expectWillDeallocate(instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
+    func expectWillDeallocate(instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
         addTeardownBlock { [weak instance] in
             XCTAssertNil(instance, "Should have been deallocated. Possible memory leak.", file: file, line: line)
         }
