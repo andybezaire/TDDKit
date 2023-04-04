@@ -6,18 +6,18 @@ final class CaptureErrorTests: XCTestCase {
         let error = AnyError()
         let (sut, _) = makeSUT(fetchXResult: .failure(error))
 
-        let capturedError: Error = await captureError(from: try await sut.fetchY())
+        let capturedError = await captureError(from: try await sut.fetchY())
 
-        XCTAssertEqual(capturedError as? AnyError, error)
+        XCTCastAssertEqual(capturedError, error)
     }
 
     func test_succedingBlock_captureError_fails() async throws {
         let block: () async throws -> Void = { }
 
         XCTExpectFailure()
-        let capturedError = await self.captureError(from: try await block())
+        let capturedError = await captureError(from: try await block())
 
-        XCTAssertEqual(capturedError as? CaptureError, .noErrorThrown)
+        XCTAssertNil(capturedError)
     }
 
     func test_failingBlock_captureError_succeeds() async throws {
@@ -26,7 +26,17 @@ final class CaptureErrorTests: XCTestCase {
 
         let capturedError = await captureError(from: try await block())
 
-        XCTAssertEqual(capturedError as? AnyError, error)
+        XCTCastAssertEqual(capturedError, error)
+    }
+
+    // MARK: - With message
+    func test_succedingBlockWithMessage_captureError_fails() async throws {
+        let block: () async throws -> Void = { }
+
+        XCTExpectFailure()
+        let capturedError = await captureError(from: try await block(), "Added message")
+
+        XCTAssertNil(capturedError)
     }
 
     // MARK: - helpers

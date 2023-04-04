@@ -12,25 +12,27 @@ public extension XCTestCase {
     ///
     ///     let capturedError = await captureError(from: try await sut.fetchY())
     ///
-    ///     XCTAssertNotNil(error)
-    ///     XCTAssertEqual(capturedError as? AnyError, error)
+    ///     XCTCastAssertEqual(capturedError, error)
     /// }
     /// ```
     /// - Parameter block: The function call under test.
     /// - Returns: The error thrown from the block or nil if no error thrown.
      func captureError<T>(
         from block: @autoclosure () async throws -> T,
+        _ message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
-     ) async -> Error {
+     ) async -> Error? {
         do {
             _ = try await block()
-            XCTFail("Should have thrown an Error.", file: file, line: line)
-            return CaptureError.noErrorThrown
+            let description = ["captureError failed: should have thrown an error", message()]
+                .filter { !$0.isEmpty }
+                .joined(separator: " - ")
+            let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
+            record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
+            return nil
         } catch {
             return error
         }
     }
 }
-
-public enum CaptureError: Error { case noErrorThrown }
