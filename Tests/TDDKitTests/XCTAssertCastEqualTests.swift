@@ -1,13 +1,13 @@
 import XCTest
 import TDDKit
 
-final class XCTCastAssertEqualTests: XCTestCase {
+final class XCTAssertCastEqualTests: XCTestCase {
     func test_successfulCast_example() throws {
         let error = XCTAnyError()
 
         let capturedError: Error? = error
 
-        XCTCastAssertEqual(capturedError, error)
+        XCTAssertCastEqual(capturedError, error)
         XCTAssertEqual(capturedError as? XCTAnyError, error)
     }
 
@@ -17,7 +17,7 @@ final class XCTCastAssertEqualTests: XCTestCase {
         let capturedError: Error? = nil
 
         XCTExpectFailure {
-            XCTCastAssertEqual(capturedError, error)
+            XCTAssertCastEqual(capturedError, error)
             XCTAssertEqual(capturedError as? XCTAnyError, error)
         }
     }
@@ -29,7 +29,7 @@ final class XCTCastAssertEqualTests: XCTestCase {
         let capturedError: Error? = OtherError()
 
         XCTExpectFailure {
-            XCTCastAssertEqual(capturedError, error)
+            XCTAssertCastEqual(capturedError, error)
             XCTAssertEqual(capturedError as? XCTAnyError, error)
         }
     }
@@ -40,7 +40,7 @@ final class XCTCastAssertEqualTests: XCTestCase {
         let capturedError: Error? = XCTAnyError()
 
         XCTExpectFailure {
-            XCTCastAssertEqual(capturedError, error)
+            XCTAssertCastEqual(capturedError, error)
             XCTAssertEqual(capturedError as! XCTAnyError, error)
         }
     }
@@ -52,7 +52,7 @@ final class XCTCastAssertEqualTests: XCTestCase {
         let throwing: () throws -> Error? = { throw thrownError }
 
         try XCTExpectFailure {
-            XCTCastAssertEqual(try throwing(), error)
+            XCTAssertCastEqual(try throwing(), error)
             XCTAssertEqual(try throwing() as? XCTAnyError, error)
         }
     }
@@ -64,7 +64,7 @@ final class XCTCastAssertEqualTests: XCTestCase {
         let capturedError: Error? = nil
 
         XCTExpectFailure {
-            XCTCastAssertEqual(capturedError, error, "Added message")
+            XCTAssertCastEqual(capturedError, error, "Added message")
             XCTAssertEqual(capturedError as? XCTAnyError, error, "Added message")
         }
     }
@@ -76,7 +76,7 @@ final class XCTCastAssertEqualTests: XCTestCase {
         let capturedError: Error? = OtherError()
 
         XCTExpectFailure {
-            XCTCastAssertEqual(capturedError, error, "Added message")
+            XCTAssertCastEqual(capturedError, error, "Added message")
             XCTAssertEqual(capturedError as? XCTAnyError, error, "Added message")
         }
     }
@@ -87,7 +87,7 @@ final class XCTCastAssertEqualTests: XCTestCase {
         let capturedError: Error? = XCTAnyError()
 
         XCTExpectFailure {
-            XCTCastAssertEqual(capturedError, error, "Added message")
+            XCTAssertCastEqual(capturedError, error, "Added message")
             XCTAssertEqual(capturedError as! XCTAnyError, error, "Added message")
         }
     }
@@ -99,7 +99,7 @@ final class XCTCastAssertEqualTests: XCTestCase {
         let throwing: () throws -> Error? = { throw thrownError }
 
         try XCTExpectFailure {
-            XCTCastAssertEqual(try throwing(), error, "Added message")
+            XCTAssertCastEqual(try throwing(), error, "Added message")
             XCTAssertEqual(try throwing() as? XCTAnyError, error, "Added message")
         }
     }

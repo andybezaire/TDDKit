@@ -8,7 +8,7 @@ final class XCTCaptureErrorTests: XCTestCase {
 
         let capturedError = await XCTCaptureError(from: try await sut.createPoem())
 
-        XCTCastAssertEqual(capturedError, error)
+        XCTAssertCastEqual(capturedError, error)
     }
 
     func test_succedingBlock_captureError_capturesNil() async throws {
@@ -26,7 +26,7 @@ final class XCTCaptureErrorTests: XCTestCase {
 
         let capturedError = await XCTCaptureError(from: try await block())
 
-        XCTCastAssertEqual(capturedError, error)
+        XCTAssertCastEqual(capturedError, error)
     }
 
     // MARK: - With message

@@ -12,7 +12,7 @@ public extension XCTestCase {
     ///
     ///     let capturedError = await XCTCaptureError(from: try await sut.createPoem())
     ///
-    ///     XCTCastAssertEqual(capturedError, error)
+    ///     XCTAssertCastEqual(capturedError, error)
     /// }
     /// ```
     /// - Parameters:
