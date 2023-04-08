@@ -116,6 +116,56 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample, "Added message")
+            XCTAssertEqual(sut, sample, "Added message")
+        }
+    }
+
+    // MARK: - throwing
+    func test_throwingExpression1_example() throws {
+        let sample = ["one", "two", "three"]
+        let thrownError = XCTAnyError()
+
+        let throwing: () throws -> [String] = { throw thrownError }
+
+        try XCTExpectFailure {
+            XCTAssertContainsEqual(try throwing(), sample)
+            XCTAssertEqual(try throwing(), sample)
+        }
+    }
+
+    func test_throwingExpression2_example() throws {
+        let thrownError = XCTAnyError()
+        let throwing: () throws -> [String] = { throw thrownError }
+
+        let sut = ["one", "two", "three"]
+
+        try XCTExpectFailure {
+            XCTAssertContainsEqual(sut, try throwing())
+            XCTAssertEqual(sut, try throwing())
+        }
+    }
+
+    func test_throwingExpression1WithMessage_example() throws {
+        let sample = ["one", "two", "three"]
+        let thrownError = XCTAnyError()
+
+        let throwing: () throws -> [String] = { throw thrownError }
+
+        try XCTExpectFailure {
+            XCTAssertContainsEqual(try throwing(), sample, "Added message")
+            XCTAssertEqual(try throwing(), sample, "Added message")
+        }
+    }
+
+    func test_throwingExpression2WithMessage_example() throws {
+        let thrownError = XCTAnyError()
+        let throwing: () throws -> [String] = { throw thrownError }
+
+        let sut = ["one", "two", "three"]
+
+        try XCTExpectFailure {
+            XCTAssertContainsEqual(sut, try throwing(), "Added message")
+            XCTAssertEqual(sut, try throwing(), "Added message")
         }
     }
 
