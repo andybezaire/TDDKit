@@ -10,9 +10,7 @@ final class XCTCaptureOutputTests: XCTestCase {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedOutput.count, 2)
-        XCTAssertEqual(capturedOutput[xctIndex: 0], true)
-        XCTAssertEqual(capturedOutput[xctIndex: 1], false)
+        XCTCountAssertEqual(capturedOutput, [true, false])
     }
 
     func test_refreshTitle_setsIsRefreshing() async throws {
@@ -22,9 +20,7 @@ final class XCTCaptureOutputTests: XCTestCase {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedOutput.count, 2)
-        XCTAssertEqual(capturedOutput[xctIndex: 0], true)
-        XCTAssertEqual(capturedOutput[xctIndex: 1], false)
+        XCTCountAssertEqual(capturedOutput, [true, false])
     }
     
     // MARK: - helpers
