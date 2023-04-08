@@ -31,12 +31,10 @@ public extension XCTestCase {
         line: UInt = #line
     ) where T: Collection, T.Element: Equatable {
         do {
-            let c1 = try expression1()
-            let c2 = try expression2()
-            let a1 = Array(c1)
-            let a2 = Array(c2)
+            let collection1 = Array(try expression1())
+            let collection2 = Array(try expression2())
 
-            let result = c1.reduce(a2) { partial, element in
+            let missingResult = collection1.reduce(collection2) { partial, element in
                 var partialResult = partial
                 if let index = partialResult.firstIndex(of: element) {
                     partialResult.remove(at: index)
@@ -44,7 +42,7 @@ public extension XCTestCase {
                 return partialResult
             }
 
-            let extraResult = c2.reduce(a1) { partial, element in
+            let extraResult = collection2.reduce(collection1) { partial, element in
                 var partialResult = partial
                 if let index = partialResult.firstIndex(of: element) {
                     partialResult.remove(at: index)
@@ -52,9 +50,9 @@ public extension XCTestCase {
                 return partialResult
             }
 
-            guard result.isEmpty else {
+            guard missingResult.isEmpty else {
                 let description = [
-                    "XCTAssertContainsEqual failed: expression1 missing elements (\"\(result)\")" +
+                    "XCTAssertContainsEqual failed: expression1 missing elements (\"\(missingResult)\")" +
                     (extraResult.isEmpty ? "" : " and has extra elements (\"\(extraResult)\")"),
                     message()
                 ]
