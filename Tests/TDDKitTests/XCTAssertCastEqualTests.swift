@@ -45,18 +45,6 @@ final class XCTAssertCastEqualTests: XCTestCase {
         }
     }
 
-    func test_throwing_example() throws {
-        let error = XCTAnyError()
-        let thrownError = XCTAnyError()
-
-        let throwing: () throws -> Error? = { throw thrownError }
-
-        try XCTExpectFailure {
-            XCTAssertCastEqual(try throwing(), error)
-            XCTAssertEqual(try throwing() as? XCTAnyError, error)
-        }
-    }
-
     // MARK: - with message
     func test_nilWithMessage_example() throws {
         let error = XCTAnyError()
@@ -89,6 +77,19 @@ final class XCTAssertCastEqualTests: XCTestCase {
         XCTExpectFailure {
             XCTAssertCastEqual(capturedError, error, "Added message")
             XCTAssertEqual(capturedError as! XCTAnyError, error, "Added message")
+        }
+    }
+
+    // MARK: - throwing
+    func test_throwing_example() throws {
+        let error = XCTAnyError()
+        let thrownError = XCTAnyError()
+
+        let throwing: () throws -> Error? = { throw thrownError }
+
+        try XCTExpectFailure {
+            XCTAssertCastEqual(try throwing(), error)
+            XCTAssertEqual(try throwing() as? XCTAnyError, error)
         }
     }
 
