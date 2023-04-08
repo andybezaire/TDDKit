@@ -4,7 +4,7 @@ import TDDKit
 @MainActor
 final class XCTCaptureIsMainThreadTests: XCTestCase {
     func test_failingFetch_refreshTitle_publishesOnMainThread() async throws {
-        let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTError()))
+        let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTAnyError()))
 
         let capturedIsMainThread = await XCTCaptureIsMainThread(for: sut.$title) {
             await sut.refreshTitle()

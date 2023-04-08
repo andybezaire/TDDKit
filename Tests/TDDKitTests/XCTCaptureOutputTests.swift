@@ -4,7 +4,7 @@ import TDDKit
 @MainActor
 final class XCTCaptureOutputTests: XCTestCase {
     func test_failingFetch_refreshTitle_setsIsRefreshing() async throws {
-        let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTError()))
+        let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTAnyError()))
 
         let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
             await sut.refreshTitle()
