@@ -6,16 +6,22 @@ public extension XCTestCase {
     /// This helps reduce boilerplate code when writing error tests for TDD.
     /// For example:
     /// ```
-    /// func test_failingFetchX_fetchY_fails() async throws {
-    ///     let error = XCTError()
-    ///     let (sut, _) = makeSUT(fetchXResult: .failure(error))
+    /// func test_failingGetUsername_createPoem_fails() async throws {
+    ///     let error = XCTAnyError()
+    ///     let (sut, _) = makeSUT(getUsernameResult: .failure(error))
     ///
-    ///     let capturedError = await XCTCaptureError(from: try await sut.fetchY())
+    ///     let capturedError = await XCTCaptureError(from: try await sut.createPoem())
     ///
     ///     XCTCastAssertEqual(capturedError, error)
     /// }
     /// ```
-    /// - Parameter block: The function call under test.
+    /// - Parameters:
+    ///   - block: The function call under test.
+    ///   - message: An optional description of a failure.
+    ///   - file: The file where the failure occurs.
+    ///   The default is the filename of the test case where you call this function.
+    ///   - line: The line number where the failure occurs.
+    ///   The default is the line number where you call this function.
     /// - Returns: The error thrown from the block or nil if no error thrown.
      func XCTCaptureError<T>(
         from block: @autoclosure () async throws -> T,
