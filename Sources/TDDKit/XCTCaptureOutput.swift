@@ -14,7 +14,7 @@ public extension XCTestCase {
     ///         await sut.refreshTitle()
     ///     }
     ///
-    ///     XCTCountAssertEqual(capturedOutput, [true, false])
+    ///     XCTAssertCountEqual(capturedOutput, [true, false])
     /// }
     /// ```
     ///
