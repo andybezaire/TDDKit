@@ -2,11 +2,31 @@ import XCTest
 
 final class XCTAssertContainsEqualTests: XCTestCase {
     func test_equal_succeeds() {
-        let sample1 = ["one", "two", "three"]
+        let sample = ["one", "two", "three"]
 
         let sut = ["one", "two", "three"].shuffled()
 
-        XCTAssertContainsEqual(sut, sample1)
+        XCTAssertContainsEqual(sut, sample)
+    }
+
+    func test_missingOne_showsMissingElement() {
+        let sample = ["one", "two", "three"]
+
+        let sut = ["one", "three"].shuffled()
+
+        XCTExpectFailure {
+            XCTAssertContainsEqual(sut, sample)
+        }
+    }
+
+    func test_missingTwo_showsMissingElements() {
+        let sample = ["one", "two", "three"]
+
+        let sut = ["three"]
+
+        XCTExpectFailure {
+            XCTAssertContainsEqual(sut, sample)
+        }
     }
 }
 
@@ -17,6 +37,29 @@ extension XCTestCase {
         _ message: @autoclosure () -> String = "",
         file: StaticString = #filePath,
         line: UInt = #line
-    ) where T: Collection, T: Equatable {
+    ) where T: Collection, T.Element: Equatable {
+        let c1 = try! expression1()
+        let c2 = try! expression2()
+        let a2 = Array(c2)
+
+        let result = c1.reduce(a2) { partial, element in
+            var partialResult = partial
+            if let index = partialResult.firstIndex(of: element) {
+                partialResult.remove(at: index)
+            }
+            return partialResult
+        }
+
+        guard result.isEmpty else {
+            let description = [
+                "XCTAssertContainsEqual failed: expression1 missing elements (\"\(result)\")",
+                message()
+            ]
+                .filter { !$0.isEmpty }
+                .joined(separator: " - ")
+            let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
+            record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
+            return
+        }
     }
 }
