@@ -37,10 +37,8 @@ public extension XCTestCase {
     /// - Parameters:
     ///   - instance: The object that is expected to be deallocted.
     ///   - message: An optional description of a failure.
-    ///   - file: The file where the failure occurs.
-    ///   The default is the filename of the test case where you call this function.
-    ///   - line: The line number where the failure occurs.
-    ///   The default is the line number where you call this function.
+    ///   - file: The file where the failure occurs. The default is the filename of the test case where you call this function.
+    ///   - line: The line number where the failure occurs. The default is the line number where you call this function.
     func XCTAssertWillDeallocate(
         instance: AnyObject,
         _ message: @escaping @autoclosure () -> String = "",
