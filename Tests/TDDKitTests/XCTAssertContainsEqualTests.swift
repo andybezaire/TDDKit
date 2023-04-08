@@ -68,6 +68,37 @@ final class XCTAssertContainsEqualTests: XCTestCase {
             XCTAssertContainsEqual(sut, sample)
         }
     }
+
+    // MARK: - with message
+    func test_missingWithMessage_showsMissingElement() {
+        let sample = ["one", "two", "three"]
+
+        let sut = ["one", "three"].shuffled()
+
+        XCTExpectFailure {
+            XCTAssertContainsEqual(sut, sample, "Added message")
+        }
+    }
+
+    func test_extraWithMessage_showsExtraElement() {
+        let sample = ["one", "two", "three"]
+
+        let sut = ["one", "two", "three", "four"].shuffled()
+
+        XCTExpectFailure {
+            XCTAssertContainsEqual(sut, sample, "Added message")
+        }
+    }
+
+    func test_extraAndMissing_showsExtraAndMissingElements() {
+        let sample = ["one", "two", "three"]
+
+        let sut = ["one", "three", "four"].shuffled()
+
+        XCTExpectFailure {
+            XCTAssertContainsEqual(sut, sample, "Added message")
+        }
+    }
 }
 
 extension XCTestCase {
