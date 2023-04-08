@@ -10,8 +10,7 @@ final class XCTCaptureIsMainThreadTests: XCTestCase {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedIsMainThread.count, 1)
-        XCTAssertEqual(capturedIsMainThread[xctIndex: 0], true)
+        XCTCountAssertEqual(capturedIsMainThread, [true])
     }
 
     func test_refreshTitle_publishesOnMainThread() async throws {
@@ -21,8 +20,7 @@ final class XCTCaptureIsMainThreadTests: XCTestCase {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedIsMainThread.count, 1)
-        XCTAssertEqual(capturedIsMainThread[xctIndex: 0], true)
+        XCTCountAssertEqual(capturedIsMainThread, [true])
     }
 
     // MARK: - helpers
