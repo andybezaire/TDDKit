@@ -13,103 +13,66 @@ They can help with writing tests that are clear and reduce boilerplate code.
 
 ## Helpers
 
-### Error
+### XCTAnyError
 
 This `Equatable` `Identifiable` `Error` can be used to help test errors thrown by dependencies.
 
 Usage:
 
 ```swift
-func test_failingFetchX_fetchY_fails() async throws {
-    let error = XCTError()
-    let (sut, _) = makeSUT(fetchXResult: .failure(error))
-
-    let capturedError = await XCTCaptureError(from: try await sut.fetchY())
-
-    XCTCastAssertEqual(capturedError, error)
+func test_failingGetUsername_createPoem_fails() async throws {
+    let error = XCTAnyError()
+    let (sut, _) = makeSUT(getUsernameResult: .failure(error))
+    
+    let capturedError = await XCTCaptureError(from: try await sut.createPoem())
+    
+    XCTAssertCastEqual(capturedError, error)
 }
 ```
 
-### Index Array Subscript
+### Assert Cast Equal
 
-Accessing an array with an index that is out of bounds will cause a runtime crash in swift. 
-If this happens in a test, the default Xcode settings will pause execution and open the debugger. 
-Also the error message is not very clear.
+Sometimes and optional value needs to be cast and compared with a real result. 
+If the cast is performed inside the assert equal, it is not clear if 
+the captured value was the wrong type or if it was nil. This can lead to 
+using a separate assert is not nil check, adding boilerplate.
 
-This array subscript helps by successfully failing the test and showing a nice error message at the point of access.
+This method will first check to see if the value is not nil and then 
+will perform the cast and assert equal, giving nice error messages for each case.
 
 Usage:
 
 ```swift
-let (sut, spy) = makeSUT()
-
-sut.doLogin()
-
-XCTAssertEqual(spy.messages.count, 1)
-XCTAssertEqual(spy.messages[xctIndex: 0], .userLogin)
-```
-
-### Capture Error
-
-The `do`-`try`-`catch` dance with optional captured errors can add a lot of boilerplate to your tests. 
-
-This helps by turning the error capture into a single line. A non-optional error is returned 
-or a test failure happens if an error is not thrown.
-
-Usage:
- 
-```swift
-func test_failingFetchX_fetchY_fails() async throws {
-    let error = XCTError()
-    let (sut, _) = makeSUT(fetchXResult: .failure(error))
-
-    let capturedError = await XCTCaptureError(from: try await sut.fetchY())
-
-    XCTCastAssertEqual(capturedError, error)
+func test_failingGetUsername_createPoem_fails() async throws {
+    let error = XCTAnyError()
+    let (sut, _) = makeSUT(getUsernameResult: .failure(error))
+    
+    let capturedError = await XCTCaptureError(from: try await sut.createPoem())
+    
+    XCTAssertCastEqual(capturedError, error)
 }
 ```
 
-### Capture is Main Thread
+### Assert Count Equal
 
-Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
-and can distract from the main focus of the test.
+When comparing two collections for equality, sometimes it is not clear if 
+the captured collection was the wrong size or if it had differnt values. This can lead to 
+using a separate assert to compare the `count`s, adding boilerplate.
 
-This function helps to make your code more clear. Put the actions which will cause the publishes
-in the block and `XCTCaptureIsMainThread` will return the results.
-
-Usage:
- 
-```swift
-func test_refreshTitle_publishesOnMainThread() async throws {
-    let (sut, _) = makeSUT()
-
-    let capturedIsMainThread = await XCTCaptureIsMainThread(for: sut.$title) {
-        await sut.refreshTitle()
-    }
-
-    XCTCountAssertEqual(capturedIsMainThread, [true])
-}
-```
-
-### Capture Output
-
-Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
-and can distract from the main focus of the test.
-
-This function helps to make your code more clear. Put the actions which will cause the publishes
-in the block and `XCTCaptureOutput` will return the results.
+This method will first check to see if the collections have the same `count` and then 
+will assert equal on the elements, giving nice error messages for each case.
 
 Usage:
- 
 ```swift
-func test_refreshTitle_setsIsRefreshing() async throws {
-    let (sut, _) = makeSUT()
+func test_fetch_succeeds() async throws {
+    let valuesSet = uniqueValuesSet()
+    let values = valuesSet.map(\.value)
+    let responses = valuesSet.map(\.response)
+    let (sut, _) = makeSUT(fetchResult: .success(responses))
 
-    let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
-        await sut.refreshTitle()
-    }
-
-    XCTCountAssertEqual(capturedOutput, [true, false])
+    let capturedValues = try await sut.fetch()
+    
+    XCTAssertCountEqual(capturedValues, values)
 }
 ```
 
@@ -134,56 +97,95 @@ private func makeSUT(
     let spy = Spy(userLoginResult: userLoginResult)
     let sut = LoginFlow(service: spy)
 
-    XCTAssertWillDeallocate(for: sut, file: file, line: line)
-    XCTAssertWillDeallocate(for: spy, file: file, line: line)
+    XCTAssertWillDeallocate(instance: sut, file: file, line: line)
+    XCTAssertWillDeallocate(instance: spy, file: file, line: line)
 
     return (sut, spy)
 }
 ```
 
-### Cast Assert Equal
+### Capture Error
 
-Sometimes and optional value needs to be cast and compared with a real result. 
-If the cast is performed inside the assert equal, it is not clear if 
-the captured value was the wrong type or if it was nil. This can lead to 
-using a separate assert is not nil check, adding boilerplate.
+The `do`-`try`-`catch` dance with optional captured errors can add a lot of boilerplate to your tests. 
 
-This method will first check to see if the value is not nil and then 
-will perform the cast and assert equal, giving nice error messages for each case.
+This helps by turning the error capture into a single line. A non-optional error is returned 
+or a test failure happens if an error is not thrown.
 
 Usage:
-
+ 
 ```swift
-func test_failingFetchX_fetchY_fails() async throws {
-    let error = XCTError()
-    let (sut, _) = makeSUT(fetchXResult: .failure(error))
-
-    let capturedError = await XCTCaptureError(from: try await sut.fetchY())
-
-    XCTCastAssertEqual(capturedError, error)
+func test_failingGetUsername_createPoem_fails() async throws {
+    let error = XCTAnyError()
+    let (sut, _) = makeSUT(getUsernameResult: .failure(error))
+    
+    let capturedError = await XCTCaptureError(from: try await sut.createPoem())
+    
+    XCTAssertCastEqual(capturedError, error)
 }
 ```
 
-### Count Assert Equal
+### Capture is Main Thread
 
-When comparing two collections for equality, sometimes it is not clear if 
-the captured collection was the wrong size or if it had differnt values. This can lead to 
-using a separate assert to compare the `count`s, adding boilerplate.
+Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
+and can distract from the main focus of the test.
 
-This method will first check to see if the collections have the same `count` and then 
-will assert equal on the elements, giving nice error messages for each case.
+This function helps to make your code more clear. Put the actions which will cause the publishes
+in the block and `XCTCaptureIsMainThread` will return the results.
 
 Usage:
+ 
 ```swift
-func test_fetch_succeeds() async throws {
-    let valuesSet = uniqueValuesSet()
-    let values = valuesSet.map(\.value)
-    let responses = valuesSet.map(\.response)
-    let (sut, _) = makeSUT(fetchResult: .success(responses))
+func test_refreshTitle_publishesOnMainThread() async throws {
+    let (sut, _) = makeSUT()
 
-    let capturedValues = try await sut.fetch()
+    let capturedIsMainThread = await XCTCaptureIsMainThread(for: sut.$title) {
+        await sut.refreshTitle()
+    }
 
-    XCTCountAssertEqual(capturedValues, values)
+    XCTAssertCountEqual(capturedIsMainThread, [true])
+}
+```
+
+### Capture Output
+
+Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
+and can distract from the main focus of the test.
+
+This function helps to make your code more clear. Put the actions which will cause the publishes
+in the block and `XCTCaptureOutput` will return the results.
+
+Usage:
+ 
+```swift
+func test_refreshTitle_setsIsRefreshing() async throws {
+    let (sut, _) = makeSUT()
+
+    let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
+        await sut.refreshTitle()
+    }
+
+    XCTAssertCountEqual(capturedOutput, [true, false])
+}
+```
+
+### Index Array Subscript
+
+Accessing an array with an index that is out of bounds will cause a runtime crash in swift. 
+If this happens in a test, the default Xcode settings will pause execution and open the debugger. 
+Also the error message is not very clear.
+
+This array subscript helps by successfully failing the test and showing a nice error message at the point of access.
+
+Usage:
+
+```swift
+func test_doLogin_callsServices() async throws {
+    let (sut, spy) = makeSUT()
+
+    sut.doLogin()
+
+    XCTAssertEqual(spy.messages.count, 1)
+    XCTAssertEqual(spy.messages[xctIndex: 0], .userLogin)
 }
 ```
 
@@ -206,10 +208,10 @@ Add this package as a dependency to the test target of your Xcode project.
 
 ### Swift Package Manager (SPM)
 
-Add this package as a dependency to the test target of your Swift package. 
+Add this package as a dependency to the **test target** of your Swift package. 
 
 ```swift
-// swift-tools-version: 5.7
+// swift-tools-version: 5.8
 import PackageDescription
 
 let package = Package(
