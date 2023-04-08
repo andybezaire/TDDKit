@@ -53,6 +53,27 @@ func test_failingGetUsername_createPoem_fails() async throws {
 }
 ```
 
+### Assert Contains Equal
+
+When comparing two collections for equality, sometimes it is not clear if 
+the captured collection was the same but just in a different order, 
+or if the collections were actually containing different elements. This can lead to 
+using separate asserts to compare the `count`s and check for `contains`, adding boilerplate.
+
+This method will check to see if the collections have the same elements 
+and will give a nice error messages when elements are missing or extra.
+
+Usage:
+```swift
+func test_createPoem_callsServices() async throws {
+    let (sut, spy) = makeSUT()
+
+    _ = try await sut.createPoem()
+    
+    XCTAssertContainsEqual(spy.messages, [.getAge, .getUsername])
+}
+```
+
 ### Assert Count Equal
 
 When comparing two collections for equality, sometimes it is not clear if 
