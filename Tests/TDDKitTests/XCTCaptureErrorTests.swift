@@ -54,7 +54,7 @@ final class XCTCaptureErrorTests: XCTestCase {
         return (sut, spy)
     }
 
-    private final class Spy: UserService {
+    private final class Spy: UserService, UserServiceDefaults {
         enum Message { case getUsername }
 
         private let getUsernameResult: Result<String, Error>
@@ -81,6 +81,13 @@ protocol PoemCreator {
 
 protocol UserService {
     func getUsername() async throws -> String
+    func getAge() async throws -> Int
+}
+
+protocol UserServiceDefaults { }
+extension UserServiceDefaults {
+    func getUsername() async throws -> String { fatalError() }
+    func getAge() async throws -> Int { fatalError() }
 }
 
 class OUATPoemCreator {
