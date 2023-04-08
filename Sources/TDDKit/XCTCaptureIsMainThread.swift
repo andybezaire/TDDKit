@@ -15,8 +15,7 @@ public extension XCTestCase {
     ///         await sut.refreshTitle()
     ///     }
     ///
-    ///     XCTAssertEqual(capturedIsMainThread.count, 1)
-    ///     XCTAssertEqual(capturedIsMainThread[index: 0], true)
+    ///     XCTAssertCountEqual(capturedIsMainThread, [true])
     /// }
     /// ```
     ///

@@ -1,12 +1,12 @@
 import XCTest
 import TDDKit
 
-final class XCTCountAssertEqualTests: XCTestCase {
+final class XCTAssertCountEqualTests: XCTestCase {
     func test_matchingArrays_example() {
         let a = ["one", "two", "three"]
         let b = ["one", "two", "three"]
 
-        XCTCountAssertEqual(a, b)
+        XCTAssertCountEqual(a, b)
         XCTAssertEqual(a.count, b.count)
         XCTAssertEqual(a, b)
     }
@@ -16,7 +16,7 @@ final class XCTCountAssertEqualTests: XCTestCase {
         let b = ["one", "two"]
 
         XCTExpectFailure {
-            XCTCountAssertEqual(a, b)
+            XCTAssertCountEqual(a, b)
             XCTAssertEqual(a.count, b.count)
             XCTAssertEqual(a, b)
         }
@@ -27,7 +27,7 @@ final class XCTCountAssertEqualTests: XCTestCase {
         let b = ["one", "two", "four"]
 
         XCTExpectFailure {
-            XCTCountAssertEqual(a, b)
+            XCTAssertCountEqual(a, b)
             XCTAssertEqual(a.count, b.count)
             XCTAssertEqual(a, b)
         }
@@ -39,7 +39,7 @@ final class XCTCountAssertEqualTests: XCTestCase {
         let b = ["one", "two"]
 
         XCTExpectFailure {
-            XCTCountAssertEqual(a, b, "Added message")
+            XCTAssertCountEqual(a, b, "Added message")
             XCTAssertEqual(a.count, b.count, "Added message")
             XCTAssertEqual(a, b, "Added message")
         }
@@ -50,7 +50,7 @@ final class XCTCountAssertEqualTests: XCTestCase {
         let b = ["one", "two", "four"]
 
         XCTExpectFailure {
-            XCTCountAssertEqual(a, b, "Added message")
+            XCTAssertCountEqual(a, b, "Added message")
             XCTAssertEqual(a.count, b.count, "Added message")
             XCTAssertEqual(a, b, "Added message")
         }

@@ -4,15 +4,13 @@ import TDDKit
 @MainActor
 final class XCTCaptureOutputTests: XCTestCase {
     func test_failingFetch_refreshTitle_setsIsRefreshing() async throws {
-        let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTError()))
+        let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTAnyError()))
 
         let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedOutput.count, 2)
-        XCTAssertEqual(capturedOutput[xctIndex: 0], true)
-        XCTAssertEqual(capturedOutput[xctIndex: 1], false)
+        XCTAssertCountEqual(capturedOutput, [true, false])
     }
 
     func test_refreshTitle_setsIsRefreshing() async throws {
@@ -22,9 +20,7 @@ final class XCTCaptureOutputTests: XCTestCase {
             await sut.refreshTitle()
         }
 
-        XCTAssertEqual(capturedOutput.count, 2)
-        XCTAssertEqual(capturedOutput[xctIndex: 0], true)
-        XCTAssertEqual(capturedOutput[xctIndex: 1], false)
+        XCTAssertCountEqual(capturedOutput, [true, false])
     }
     
     // MARK: - helpers

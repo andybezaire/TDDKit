@@ -27,8 +27,8 @@ public extension XCTestCase {
     ///     let spy = Spy(userLoginResult: userLoginResult)
     ///     let sut = LoginFlow(service: spy)
     ///
-    ///     XCTAssertWillDeallocate(for: sut, file: file, line: line)
-    ///     XCTAssertWillDeallocate(for: spy, file: file, line: line)
+    ///     XCTAssertWillDeallocate(instance: sut, file: file, line: line)
+    ///     XCTAssertWillDeallocate(instance: spy, file: file, line: line)
     ///
     ///     return (sut, spy)
     /// }
@@ -36,10 +36,9 @@ public extension XCTestCase {
     ///
     /// - Parameters:
     ///   - instance: The object that is expected to be deallocted.
-    ///   - file: The file where the failure occurs.
-    ///   The default is the filename of the test case where you call this function.
-    ///   - line: The line number where the failure occurs.
-    ///   The default is the line number where you call this function.
+    ///   - message: An optional description of a failure.
+    ///   - file: The file where the failure occurs. The default is the filename of the test case where you call this function.
+    ///   - line: The line number where the failure occurs. The default is the line number where you call this function.
     func XCTAssertWillDeallocate(
         instance: AnyObject,
         _ message: @escaping @autoclosure () -> String = "",
