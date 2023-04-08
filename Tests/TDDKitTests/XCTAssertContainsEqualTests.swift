@@ -27,6 +27,7 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample)
+            XCTAssertEqual(sut, sample)
         }
     }
 
@@ -37,7 +38,8 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample)
-        }
+            XCTAssertEqual(sut, sample)
+       }
     }
 
     func test_oneExtra_showsExtraElement() {
@@ -47,6 +49,7 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample)
+            XCTAssertEqual(sut, sample)
         }
     }
 
@@ -57,6 +60,7 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample)
+            XCTAssertEqual(sut, sample)
         }
     }
 
@@ -67,6 +71,7 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample)
+            XCTAssertEqual(sut, sample)
         }
     }
 
@@ -77,6 +82,7 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample)
+            XCTAssertEqual(sut, sample)
         }
     }
 
@@ -88,6 +94,7 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample, "Added message")
+            XCTAssertEqual(sut, sample)
         }
     }
 
@@ -98,6 +105,7 @@ final class XCTAssertContainsEqualTests: XCTestCase {
 
         XCTExpectFailure {
             XCTAssertContainsEqual(sut, sample, "Added message")
+            XCTAssertEqual(sut, sample, "Added message")
         }
     }
 
