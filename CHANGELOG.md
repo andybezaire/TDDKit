@@ -8,12 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Assert Contains Equal
 ### Fixed
 ### Changed
-- Renamed for a nicer API
-
 ### Removed
+
+## [1.6.0] - 2023-04-08
+
+### Added
+- Assert Contains Equal
+### Changed
+- Renamed for a nicer API
 
 ## [1.5.0] - 2023-04-04
 
@@ -64,7 +68,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Expect Will Deallocate Instance
 
 
-[unreleased]: https://github.com/andybezaire/TDDKit/compare/v1.5.0...HEAD
+[unreleased]: https://github.com/andybezaire/TDDKit/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/andybezaire/TDDKit/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/andybezaire/TDDKit/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/andybezaire/TDDKit/compare/v1.3.0...v1.4.0
 [1.3.1]: https://github.com/andybezaire/TDDKit/compare/v1.3.0...v1.3.1
