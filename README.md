@@ -178,7 +178,7 @@ in the block and `XCTCaptureOutput` will return the results.
 Usage:
  
 ```swift
-func test_refreshTitle_setsIsRefreshing() async throws {
+func test_refreshTitle_setsIsLoading() async throws {
     let (sut, _) = makeSUT()
 
     let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {

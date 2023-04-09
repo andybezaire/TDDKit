@@ -3,7 +3,7 @@ import TDDKit
 
 @MainActor
 final class XCTCaptureOutputTests: XCTestCase {
-    func test_failingFetch_refreshTitle_setsIsRefreshing() async throws {
+    func test_failingFetch_refreshTitle_setsIsLoading() async throws {
         let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTAnyError()))
 
         let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
@@ -13,7 +13,7 @@ final class XCTCaptureOutputTests: XCTestCase {
         XCTAssertCountEqual(capturedOutput, [true, false])
     }
 
-    func test_refreshTitle_setsIsRefreshing() async throws {
+    func test_refreshTitle_setsIsLoading() async throws {
         let (sut, _) = makeSUT()
 
         let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
@@ -63,7 +63,7 @@ private protocol TitleService {
 }
 
 @MainActor
-private class ViewModel: ObservableObject {
+private final class ViewModel: ObservableObject {
     private let service: TitleService
 
     init(service: TitleService, initialTitle: String? = nil) {
@@ -74,7 +74,7 @@ private class ViewModel: ObservableObject {
     @Published private(set) var title: String
     @Published private(set) var isLoading: Bool = false
 
-    @Sendable func refreshTitle() async {
+    func refreshTitle() async {
         isLoading = true
         title = (try? await service.fetchTitle()) ?? ""
         isLoading = false
