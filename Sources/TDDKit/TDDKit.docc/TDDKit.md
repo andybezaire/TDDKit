@@ -1,22 +1,22 @@
 # ``TDDKit``
 
-A grouping of helpers used to improve the testing experience.
+Helping you improve the test driven development experience in *Swift*.
 
 
 ## Overview
 
-TDD is a great way to write code. It improves code quality and brings great joy. 😊
+TDD is a great way to write code. It improves code quality and brings great *joy*. 😊
 
-But it also brings a lot of boilerplate. 
+But it also brings a lot of **boilerplate**. 🤬 
 
-These test helpers are designed with TDD in mind. 
-They can help with writing tests that are clear and reduce boilerplate code.
+``TDDKit`` is designed with TDD in mind. These opinionated helpers keep 
+you writing great tests that are clear, concise and to-the-point.
 
 
 ## Topics
 
 ### Essentials
-- <doc:Ge>
+- <doc:GettingStarted>
 
 ### Asserting Equal
 
