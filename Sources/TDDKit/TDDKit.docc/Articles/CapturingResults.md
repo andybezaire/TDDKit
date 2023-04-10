@@ -19,6 +19,8 @@ These helpers will help to remove the boilerplate and keep your tests tight and 
 
 ### Capture Error
 
+- ``XCTest/XCTestCase/XCTCaptureError(from:_:file:line:)``
+
 The `do`-`try`-`catch` dance with optional captured errors can add a lot of boilerplate to your tests. 
 
 This helps by turning the error capture into a single line. A non-optional error is returned 
@@ -55,6 +57,8 @@ func test_failingGetUsername_createPoem_fails() async throws {
 
 
 ### Capture is Main Thread
+
+- ``XCTest/XCTestCase/XCTCaptureIsMainThread(for:droppingFirst:when:)``
 
 Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
 and can distract from the main focus of the test.
@@ -94,6 +98,8 @@ func test_refreshTitle_publishesOnMainThread() async throws {
 
 ### Capture Output
 
+- ``XCTest/XCTestCase/XCTCaptureOutput(for:droppingFirst:when:)``
+
 Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
 and can distract from the main focus of the test.
 
@@ -131,6 +137,8 @@ func test_refreshTitle_publishesOnMainThread() async throws {
 
 
 ### Capture Output Of
+
+- ``XCTest/XCTestCase/XCTCaptureOutput(of:for:droppingFirst:when:)``
 
 Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
 and can distract from the main focus of the test. When sampling a var that depends on the output, 

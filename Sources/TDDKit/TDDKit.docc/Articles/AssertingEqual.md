@@ -18,7 +18,9 @@ Often we need to write multiple assertions so that the test error can give us cl
 This leads to longer than needed tests. This group of helpers will help improve that.
 
 
-### Assert Cast Equal
+### Assert Cast Equal 
+
+``XCTest/XCTestCase/XCTAssertCastEqual(_:_:_:file:line:)``
 
 Sometimes and optional value needs to be cast and compared with a real result. 
 If the cast is performed inside the assert equal, it is not clear if 
@@ -56,6 +58,8 @@ func test_failingGetUsername_createPoem_fails() async throws {
 
 ### Assert Contains Equal
 
+- ``XCTest/XCTestCase/XCTAssertContainsEqual(_:_:_:file:line:)``
+
 When comparing two collections for equality, sometimes it is not clear if 
 the captured collection was the same but just in a different order, 
 or if the collections were actually containing different elements. This can lead to 
@@ -91,6 +95,8 @@ func test_createPoem_callsServices() async throws {
 
 
 ### Assert Count Equal
+
+- ``XCTest/XCTestCase/XCTAssertCountEqual(_:_:_:file:line:)``
 
 When comparing two collections for equality, sometimes it is not clear if 
 the captured collection was the wrong size or if it had differnt values. This can lead to 
