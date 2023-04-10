@@ -84,10 +84,8 @@ will assert equal on the elements, giving nice error messages for each case.
 Usage:
 ```swift
 func test_fetch_succeeds() async throws {
-    let valuesSet = uniqueValuesSet()
-    let values = valuesSet.map(\.value)
-    let responses = valuesSet.map(\.response)
-    let (sut, _) = makeSUT(fetchResult: .success(responses))
+    let (values, response) = uniqueValuesSet()
+    let (sut, _) = makeSUT(fetchResult: .success(response))
 
     let capturedValues = try await sut.fetch()
     
@@ -183,7 +181,7 @@ func test_refreshTitle_setsIsLoading() async throws {
 }
 ```
 
-### Capture Output
+### Capture Output Of
 
 Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
 and can distract from the main focus of the test. When sampling a var that depends on the output, 

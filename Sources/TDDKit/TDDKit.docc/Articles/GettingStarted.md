@@ -1,4 +1,4 @@
-# GettingStarted
+# Getting Started
 
 Installation and additional resources.
 
@@ -66,10 +66,3 @@ See the [LICENSE](https://github.com/andybezaire/TDDKit/blob/main/LICENSE) file 
 Copyright (c) 2023 Andy Bezaire
 
 Created by: andybezaire
-
-
-## Topics
-
-### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
-
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->

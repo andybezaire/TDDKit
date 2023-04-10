@@ -1,10 +1,10 @@
-# AssertingEqual
+# Asserting Equal
 
-Improvements to ``XCTest/XCTAssertEqual(_:_:_:file:line:)``.
+Helpers similar to `XCTAssertEqual`.
 
 ## Overview
 
-``XCTest/XCTAssertEqual(_:_:_:file:line:)`` is a handy function to use in tests. 
+`XCTAssertEqual` is a handy function to use in tests. 
 It is a quick way to compare two values for equality, and gives a nice failure method 
 when the values don't match. It can be used with values, optionals, collections. 
 Just pass them to the function and it works. Very helpful. 👍

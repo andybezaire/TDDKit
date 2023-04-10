@@ -8,10 +8,8 @@ public extension XCTestCase {
     ///
     /// ```swift
     /// func test_fetch_succeeds() async throws {
-    ///     let valuesSet = uniqueValuesSet()
-    ///     let values = valuesSet.map(\.value)
-    ///     let responses = valuesSet.map(\.response)
-    ///     let (sut, _) = makeSUT(fetchResult: .success(responses))
+    ///     let (values, response) = uniqueValuesSet()
+    ///     let (sut, _) = makeSUT(fetchResult: .success(response))
     ///
     ///     let capturedValues = try await sut.fetch()
     ///

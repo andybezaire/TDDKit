@@ -20,6 +20,7 @@ you writing great tests that are clear, concise and to-the-point.
 
 ### Asserting Equal
 
+- <doc:AssertingEqual>
 - ``XCTest/XCTestCase/XCTAssertCastEqual(_:_:_:file:line:)``
 - ``XCTest/XCTestCase/XCTAssertContainsEqual(_:_:_:file:line:)``
 - ``XCTest/XCTestCase/XCTAssertCountEqual(_:_:_:file:line:)``
