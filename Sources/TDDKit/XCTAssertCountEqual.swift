@@ -1,17 +1,15 @@
 import XCTest
 
 public extension XCTestCase {
-    /// Asserts that the collections are the same size and that they are equal.
-    /// Fails with a different message for each case.
-    ///
+    /// Assert the collections are the same size and that they are equal.
+    /// 
+    /// The assert will fail with a different message for each case.
     /// Use this function to compare two collections to easily see if they are the same size and equal.
-    /// For example:
-    /// ```
+    ///
+    /// ```swift
     /// func test_fetch_succeeds() async throws {
-    ///     let valuesSet = uniqueValuesSet()
-    ///     let values = valuesSet.map(\.value)
-    ///     let responses = valuesSet.map(\.response)
-    ///     let (sut, _) = makeSUT(fetchResult: .success(responses))
+    ///     let (values, response) = uniqueValuesSet()
+    ///     let (sut, _) = makeSUT(fetchResult: .success(response))
     ///
     ///     let capturedValues = try await sut.fetch()
     ///

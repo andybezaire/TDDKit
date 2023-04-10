@@ -2,11 +2,12 @@ import Combine
 import XCTest
 
 public extension XCTestCase {
-    /// A helper function to test that a variable gets the correct values when the publisher it is based on publishes.
+    /// Capture the output of a closure when an `@Published` publisher publishes.
     ///
-    /// This helper is useful to TDD a view model or flow to add state changes for an action.
+    /// This function samples the closure value after the publisher has published
+    /// and returns these samples in an array.
     ///
-    /// ```
+    /// ```swift
     /// func test_refreshTitle_setsLoadingText() async throws {
     ///     let (sut, _) = makeSUT()
     ///
@@ -18,26 +19,28 @@ public extension XCTestCase {
     /// }
     /// ```
     ///
-    /// Please refer to the package tests for a complete example.
+    /// > Note: As the publisher publishes on `objectWillChange` the closure's return value
+    /// > will represent the previous published value.
+    /// > Extra initial values are discarded by this function and a final value is appended to the end.
+    ///
     /// - Parameters:
     ///   - closure: The closure that will output the correct values.
     ///   - publisher: The publisher that indicated when the closure should be sampled.
-    ///   - dropCount: _Optional._ The number of initial values to drop. Defaults to 2,
-    ///   as the @Publisher will publish the initial value and that often does not
-    ///   need to be considered. It also publishes _before_ the value is updated.
-    ///   This extra read before is removed and an extra read is done after the block.
+    ///   - dropCount: _Optional._ The number of initial values to drop. Defaults to 1,
+    ///   as the `@Published`publisher will publish the initial value
+    ///   and that often does not need to be considered.
     ///   - block: The action that should happen to cause the publisher to publish.
     /// - Returns: An array containing the sampled output of the closure.
     func XCTCaptureOutput<Publisher, Output>(
         of closure: @escaping () -> Output,
         for publisher: Publisher,
-        droppingFirst dropCount: Int = 2,
+        droppingFirst dropCount: Int = 1,
         when block: () async -> Void
     ) async -> [Output] where Publisher: Combine.Publisher, Publisher.Failure == Never {
         var capturedOutput: [Output] = []
 
         let publishing = publisher
-            .dropFirst(dropCount)
+            .dropFirst(dropCount + 1)
             .sink { _ in capturedOutput.append(closure()) }
         await block()
         capturedOutput.append(closure())

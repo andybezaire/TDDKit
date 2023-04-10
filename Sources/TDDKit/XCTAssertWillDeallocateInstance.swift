@@ -10,12 +10,10 @@ public extension XCTestCase {
     /// that your object has been deallocated by the end of the test.
     /// It is most useful to use it in your makeSUT method.
     ///
-    /// - Note: A test may finish without deallocating an object.
-    /// This is especially likely to occur in tests involving asyncronity.
-    /// It is recommended that you track all objects created for a test and make sure to
-    /// wait for all long lived processes to finish before the test ends.
-    ///
-    /// Usage:
+    /// > Note: A test may finish without deallocating an object.
+    /// > This is especially likely to occur in tests involving asyncronity.
+    /// > It is recommended that you track all objects created for a test and make sure to
+    /// > wait for all long lived processes to finish before the test ends.
     ///
     /// ```swift
     /// private func makeSUT(

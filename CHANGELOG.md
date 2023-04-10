@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Typo in example code test name
 ### Changed
+- Moved subscript extension to `Collection` (from `Array`)
 ### Removed
 
 ## [1.6.0] - 2023-04-08

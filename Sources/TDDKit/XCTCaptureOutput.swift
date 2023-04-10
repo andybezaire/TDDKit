@@ -2,11 +2,11 @@ import Combine
 import XCTest
 
 public extension XCTestCase {
-    /// A helper function to test that a publisher publishes the correct values.
+    /// Capture the output of an `@Published` publisher.
     ///
-    /// This helper is useful to TDD a view model or flow to add state changes for an action.
+    /// This function returns an array of all of the `Output` values that the publisher has published.
     ///
-    /// ```
+    /// ```swift
     /// func test_refreshTitle_setsIsLoading() async throws {
     ///     let (sut, _) = makeSUT()
     ///
@@ -18,12 +18,11 @@ public extension XCTestCase {
     /// }
     /// ```
     ///
-    /// Please refer to the package tests for a complete example.
     /// - Parameters:
     ///   - publisher: The publisher that should publish the correct values.
     ///   - dropCount: _Optional._ The number of initial values to drop. Defaults to 1,
-    ///   as the @Publisher will publish the initial value and that often does not
-    ///   need to be considered.
+    ///   as the `@Published`publisher will publish the initial value
+    ///   and that often does not need to be considered.
     ///   - block: The action that should happen to cause the publisher to publish.
     /// - Returns: An array containing the output of the publisher.
     func XCTCaptureOutput<Publisher, Output>(

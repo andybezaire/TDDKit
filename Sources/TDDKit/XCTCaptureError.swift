@@ -1,11 +1,12 @@
 import XCTest
 
 public extension XCTestCase {
-    /// Helper to extract the error from an asyncronous throwing function call.
+    /// Capture the error from an asyncronous throwing function call.
     ///
-    /// This helps reduce boilerplate code when writing error tests for TDD.
-    /// For example:
-    /// ```
+    /// This function will return the error from a throwing call.
+    /// If no error was thrown, it will record a test failure.
+    ///
+    /// ```swift
     /// func test_failingGetUsername_createPoem_fails() async throws {
     ///     let error = XCTAnyError()
     ///     let (sut, _) = makeSUT(getUsernameResult: .failure(error))
@@ -15,6 +16,7 @@ public extension XCTestCase {
     ///     XCTAssertCastEqual(capturedError, error)
     /// }
     /// ```
+    /// 
     /// - Parameters:
     ///   - block: The function call under test.
     ///   - message: An optional description of a failure.

@@ -6,7 +6,7 @@ public extension XCTestCase {
     ///
     /// This can be used to test that a service throws the error passed to one of its dependencies.
     /// For example:
-    /// ```
+    /// ```swift
     /// func test_failingGetUsername_createPoem_fails() async throws {
     ///     let error = XCTAnyError()
     ///     let (sut, _) = makeSUT(getUsernameResult: .failure(error))
