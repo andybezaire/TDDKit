@@ -5,7 +5,7 @@ Helping you improve the test driven development experience in *Swift*.
 
 ## Overview
 
-TDD is a great way to write code. It improves code quality and brings great *joy*. 😊
+TDD is a great way to write code. It improves code quality and brings *great joy*. 😊
 
 But it also brings a lot of **boilerplate**. 🤬 
 
