@@ -1,6 +1,6 @@
 # ``TDDKit``
 
-Helping you improve the test driven development experience in *Swift*.
+You are now leveled up in your test driven development experience in *Swift*.
 
 
 ## Overview
