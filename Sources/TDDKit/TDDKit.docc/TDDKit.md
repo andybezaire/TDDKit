@@ -1,6 +1,6 @@
 # ``TDDKit``
 
-You are now leveled up in your test driven development experience in *Swift*.
+You are now leveled up in your test driven development experience in *Swift*. 🚀
 
 
 ## Overview
@@ -11,6 +11,8 @@ But it also brings a lot of **boilerplate**. 🤬
 
 ``TDDKit`` is designed with TDD in mind. These opinionated helpers keep 
 you writing great tests that are clear, concise and to-the-point.
+
+🫵😎🎉
 
 
 ## Topics

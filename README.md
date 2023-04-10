@@ -1,14 +1,19 @@
  <p> <a href="https://twitter.com/andy_bezaire"> <img src="https://img.shields.io/twitter/url?url=http%3A%2F%2Fgithub.com%2Fandybezaire%2FTDDKit=" alt="Twitter: @andy_bezaire" /> </a> </p>
 
 # TDDKit ![test status](https://github.com/andybezaire/TDDKit/actions/workflows/swift.yml/badge.svg) ![license MIT](https://img.shields.io/github/license/andybezaire/TDDKit)
-A grouping of helpers used to improve the testing experience.
 
-TDD is a great way to write code. It improves code quality and brings great joy. 😊
+You are now leveled up in your test driven development experience in *Swift*. 🚀
 
-But it also brings a lot of boilerplate. 
+## Overview
 
-These test helpers are designed with TDD in mind. 
-They can help with writing tests that are clear and reduce boilerplate code.
+TDD is a great way to write code. It improves code quality and brings *great joy*. 😊
+
+But it also brings a lot of **boilerplate**. 🤬 
+
+`TDDKit` is designed with TDD in mind. These opinionated helpers keep 
+you writing great tests that are clear, concise and to-the-point.
+
+🫵😎🎉
 
 
 ## Helpers
