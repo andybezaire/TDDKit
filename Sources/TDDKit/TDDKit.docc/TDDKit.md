@@ -35,6 +35,7 @@ you writing great tests that are clear, concise and to-the-point.
 
 ### Tracking Memory Leaks
 
+- <doc:TrackingMemoryLeaks>
 - ``XCTest/XCTestCase/XCTAssertWillDeallocate(instance:_:file:line:)``
 
 ### Utility
