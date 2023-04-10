@@ -57,7 +57,7 @@ swift package generate-documentation --include-extended-types
 > Note: This package includes mainly extensions,
 > so the `--include-extended-types` flag is neccesary.
 
-The documentation is also available on [GitHub](https://example.com)
+The documentation is also available on [GitHub](https://andybezaire.github.io/documentation/TDDKit)
 
 ## Sample Code
 
