@@ -2,7 +2,7 @@ import Combine
 import XCTest
 
 public extension XCTestCase {
-    /// Capture the output of a publisher.
+    /// Capture the output of an `@Published` publisher.
     ///
     /// This function returns an array of all of the `Output` values that the publisher has published.
     ///
@@ -21,8 +21,8 @@ public extension XCTestCase {
     /// - Parameters:
     ///   - publisher: The publisher that should publish the correct values.
     ///   - dropCount: _Optional._ The number of initial values to drop. Defaults to 1,
-    ///   as the `@Published will publish the initial value and that often does not
-    ///   need to be considered.
+    ///   as the `@Published`publisher will publish the initial value
+    ///   and that often does not need to be considered.
     ///   - block: The action that should happen to cause the publisher to publish.
     /// - Returns: An array containing the output of the publisher.
     func XCTCaptureOutput<Publisher, Output>(

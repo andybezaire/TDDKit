@@ -3,7 +3,7 @@ import Foundation
 import XCTest
 
 public extension XCTestCase {
-    /// Capture did a publisher publish on the main thread.
+    /// Capture did an `@Published` publisher publish on the main thread.
     ///
     /// This function will return an array of `Bool`s which indicate if the publish occurred on the main thread.
     ///
@@ -22,8 +22,8 @@ public extension XCTestCase {
     /// - Parameters:
     ///   - publisher: The publisher that should publish on the main thread.
     ///   - dropCount: _Optional._ The number of initial values to drop. Defaults to 1,
-    ///   as the `@Published will publish the initial value and that often does not
-    ///   need to happen on the main thread.
+    ///   as the `@Published`publisher will publish the initial value
+    ///   and that often does not need to happen on the main thread.
     ///   - block: The action that should happen to cause the publisher to publish.
     /// - Returns: An array of `Bool`s indicating if the publishes were on the main thread.
     func XCTCaptureIsMainThread<Publisher>(
