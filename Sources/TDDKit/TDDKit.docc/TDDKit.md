@@ -40,5 +40,6 @@ you writing great tests that are clear, concise and to-the-point.
 
 ### Utility
 
+- <doc:Utility>
 - ``XCTest/XCTestCase/XCTAnyError``
 - ``Swift/Collection/subscript(xctIndex:_:_:)``
