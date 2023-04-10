@@ -1,12 +1,12 @@
 import XCTest
 
 public extension XCTestCase {
-    /// Asserts that the first collection exactly contains all the elements of the second collection.
-    /// Fails with a different message for missing elements, extra elements, or both.
-    /// This is an order independent compare.
+    /// Assert the first collection exactly contains all the elements of the second collection.
     ///
+    /// The assert will fail with a different message for missing elements, extra elements, or both.
+    /// This is an order independent compare.
     /// Use this function to compare two collections to easily see if they contain exactly the same elements.
-    /// For example:
+    /// 
     /// ```swift
     /// func test_createPoem_callsServices() async throws {
     ///     let (sut, spy) = makeSUT()

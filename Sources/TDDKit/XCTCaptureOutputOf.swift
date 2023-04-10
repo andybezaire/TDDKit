@@ -2,9 +2,10 @@ import Combine
 import XCTest
 
 public extension XCTestCase {
-    /// A helper function to test that a variable gets the correct values when the publisher it is based on publishes.
+    /// Capture the output of a closure when a publisher publishes.
     ///
-    /// This helper is useful to TDD a view model or flow to add state changes for an action.
+    /// This function samples the closure value after the publisher has published
+    /// and returns these samples in an array.
     ///
     /// ```swift
     /// func test_refreshTitle_setsLoadingText() async throws {
@@ -18,7 +19,6 @@ public extension XCTestCase {
     /// }
     /// ```
     ///
-    /// Please refer to the package tests for a complete example.
     /// - Parameters:
     ///   - closure: The closure that will output the correct values.
     ///   - publisher: The publisher that indicated when the closure should be sampled.
