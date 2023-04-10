@@ -7,7 +7,7 @@ public extension XCTestCase {
     ///
     /// This helper is useful to TDD a view model or flow to add publishes on main thread functionality.
     ///
-    /// ```
+    /// ```swift
     /// func test_refreshTitle_publishesOnMainThread() async throws {
     ///     let (sut, _) = makeSUT()
     ///

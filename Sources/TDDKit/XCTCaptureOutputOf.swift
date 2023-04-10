@@ -6,7 +6,7 @@ public extension XCTestCase {
     ///
     /// This helper is useful to TDD a view model or flow to add state changes for an action.
     ///
-    /// ```
+    /// ```swift
     /// func test_refreshTitle_setsLoadingText() async throws {
     ///     let (sut, _) = makeSUT()
     ///

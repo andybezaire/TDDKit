@@ -7,7 +7,7 @@ public extension XCTestCase {
     ///
     /// Use this function to compare two collections to easily see if they contain exactly the same elements.
     /// For example:
-    /// ```
+    /// ```swift
     /// func test_createPoem_callsServices() async throws {
     ///     let (sut, spy) = makeSUT()
     ///

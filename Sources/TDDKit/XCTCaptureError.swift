@@ -5,7 +5,7 @@ public extension XCTestCase {
     ///
     /// This helps reduce boilerplate code when writing error tests for TDD.
     /// For example:
-    /// ```
+    /// ```swift
     /// func test_failingGetUsername_createPoem_fails() async throws {
     ///     let error = XCTAnyError()
     ///     let (sut, _) = makeSUT(getUsernameResult: .failure(error))

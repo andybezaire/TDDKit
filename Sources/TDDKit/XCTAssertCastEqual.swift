@@ -5,7 +5,7 @@ public extension XCTestCase {
     ///
     /// Use this function to compare two values of different types, where the first type is optional and can be cast to the second type.
     /// For example:
-    /// ```
+    /// ```swift
     /// func test_failingGetUsername_createPoem_fails() async throws {
     ///     let error = XCTAnyError()
     ///     let (sut, _) = makeSUT(getUsernameResult: .failure(error))

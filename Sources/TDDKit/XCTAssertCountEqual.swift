@@ -6,7 +6,7 @@ public extension XCTestCase {
     ///
     /// Use this function to compare two collections to easily see if they are the same size and equal.
     /// For example:
-    /// ```
+    /// ```swift
     /// func test_fetch_succeeds() async throws {
     ///     let valuesSet = uniqueValuesSet()
     ///     let values = valuesSet.map(\.value)
