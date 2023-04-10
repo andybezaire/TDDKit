@@ -3,7 +3,7 @@
 # TDDKit ![test status](https://github.com/andybezaire/TDDKit/actions/workflows/swift.yml/badge.svg) ![license MIT](https://img.shields.io/github/license/andybezaire/TDDKit)
 A grouping of helpers used to improve the testing experience.
 
-TDD is a great way to write code. It improves code quality and brings great joy.
+TDD is a great way to write code. It improves code quality and brings great joy. 😊
 
 But it also brings a lot of boilerplate. 
 
@@ -18,7 +18,6 @@ They can help with writing tests that are clear and reduce boilerplate code.
 This `Equatable` `Identifiable` `Error` can be used to help test errors thrown by dependencies.
 
 Usage:
-
 ```swift
 func test_failingGetUsername_createPoem_fails() async throws {
     let error = XCTAnyError()
@@ -41,7 +40,6 @@ This method will first check to see if the value is not nil and then
 will perform the cast and assert equal, giving nice error messages for each case.
 
 Usage:
-
 ```swift
 func test_failingGetUsername_createPoem_fails() async throws {
     let error = XCTAnyError()
@@ -107,7 +105,6 @@ that your object has been deallocated by the end of the test.
 It is most useful to use it in your `makeSUT` method.
 
 Usage:
-
 ```swift
 private func makeSUT(
     userLoginResult: Result<Void, Error> = .success(()),
@@ -133,7 +130,6 @@ This helps by turning the error capture into a single line. A non-optional error
 or a test failure happens if an error is not thrown.
 
 Usage:
- 
 ```swift
 func test_failingGetUsername_createPoem_fails() async throws {
     let error = XCTAnyError()
@@ -154,7 +150,6 @@ This function helps to make your code more clear. Put the actions which will cau
 in the block and `XCTCaptureIsMainThread` will return the results.
 
 Usage:
- 
 ```swift
 func test_refreshTitle_publishesOnMainThread() async throws {
     let (sut, _) = makeSUT()
@@ -176,7 +171,6 @@ This function helps to make your code more clear. Put the actions which will cau
 in the block and `XCTCaptureOutput` will return the results.
 
 Usage:
- 
 ```swift
 func test_refreshTitle_setsIsLoading() async throws {
     let (sut, _) = makeSUT()
@@ -189,6 +183,28 @@ func test_refreshTitle_setsIsLoading() async throws {
 }
 ```
 
+### Capture Output
+
+Subscribing to a Publisher and managing the `AnyCancellable` in a test leads to a lot of typing, 
+and can distract from the main focus of the test. When sampling a var that depends on the output, 
+adding an additional sample is even more boilerplate.
+
+This function helps to make your code more clear. Provide a closure to compute the result and 
+put the actions which will cause the publishes in the block and `XCTCaptureOutput` will return the results.
+
+Usage:
+```swift
+func test_refreshTitle_setsLoadingText() async throws {
+    let (sut, _) = makeSUT()
+
+    let capturedOutput = await XCTCaptureOutput(of: { sut.loadingText }, for: sut.$isLoading) {
+        await sut.refreshTitle()
+    }
+
+    XCTAssertCountEqual(capturedOutput, ["Loading...", "Finished"])
+}
+```
+
 ### Index Array Subscript
 
 Accessing an array with an index that is out of bounds will cause a runtime crash in swift. 
@@ -198,7 +214,6 @@ Also the error message is not very clear.
 This array subscript helps by successfully failing the test and showing a nice error message at the point of access.
 
 Usage:
-
 ```swift
 func test_doLogin_callsServices() async throws {
     let (sut, spy) = makeSUT()
