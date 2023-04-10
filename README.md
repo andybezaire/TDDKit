@@ -263,6 +263,21 @@ let package = Package(
 )
 ```
 
+## Documentation
+
+It is recommended to add the documentation to your documentation browser
+for the most immersive experience. 😎
+
+The documentation can be generated from this package using: 
+
+```bash
+swift package generate-documentation --include-extended-types
+```
+
+> Note: This package includes mainly extensions,
+> so the `--include-extended-types` flag is neccesary.
+
+The documentation is also available on [GitHub](https://example.com)
 
 ## More Info and Feature Requests
 
