@@ -2,27 +2,27 @@ import XCTest
 import TDDKit
 
 @MainActor
-final class XCTCaptureOutputTests: XCTestCase {
-    func test_failingFetch_refreshTitle_setsIsLoading() async throws {
+final class XCTCaptureOutputOfTests: XCTestCase {
+    func test_failingFetch_refreshTitle_setsLoadingText() async throws {
         let (sut, _) = makeSUT(fetchTitleResult: .failure(XCTAnyError()))
 
-        let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
+        let capturedOutput = await XCTCaptureOutput(of: { sut.loadingText }, for: sut.$isLoading) {
             await sut.refreshTitle()
         }
 
-        XCTAssertCountEqual(capturedOutput, [true, false])
+        XCTAssertCountEqual(capturedOutput, ["Loading...", "Finished"])
     }
 
-    func test_refreshTitle_setsIsLoading() async throws {
+    func test_refreshTitle_setsLoadingText() async throws {
         let (sut, _) = makeSUT()
 
-        let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
+        let capturedOutput = await XCTCaptureOutput(of: { sut.loadingText }, for: sut.$isLoading) {
             await sut.refreshTitle()
         }
 
-        XCTAssertCountEqual(capturedOutput, [true, false])
+        XCTAssertCountEqual(capturedOutput, ["Loading...", "Finished"])
     }
-    
+
     // MARK: - helpers
     private func makeSUT(
         fetchTitleResult: Result<String, Error> = .success("Title"),
@@ -73,6 +73,8 @@ private final class ViewModel: ObservableObject {
 
     @Published private(set) var title: String
     @Published private(set) var isLoading: Bool = false
+
+    var loadingText: String { isLoading ? "Loading..." : "Finished" }
 
     func refreshTitle() async {
         isLoading = true

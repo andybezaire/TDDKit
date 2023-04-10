@@ -7,7 +7,7 @@ public extension XCTestCase {
     /// This helper is useful to TDD a view model or flow to add state changes for an action.
     ///
     /// ```
-    /// func test_refreshTitle_setsIsRefreshing() async throws {
+    /// func test_refreshTitle_setsIsLoading() async throws {
     ///     let (sut, _) = makeSUT()
     ///
     ///     let capturedOutput = await XCTCaptureOutput(for: sut.$isLoading) {
@@ -41,5 +41,4 @@ public extension XCTestCase {
         publishing.cancel()
         return capturedOutput
     }
-
 }
