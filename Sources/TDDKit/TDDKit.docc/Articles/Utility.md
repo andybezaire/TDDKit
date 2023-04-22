@@ -42,6 +42,37 @@ func test_selfReferencing_example() throws {
 }
 ```
 
+Also enum output can be extremely bad:
+
+````swift
+func test_createPoem_callsServices() async throws {
+    let (sut, spy) = makeSUT()
+
+    _ = try await sut.createPoem()
+
+    XCTExpectFailure {
+        XCTAssertEqual(spy.messages, [.getAge, .getUsername])
+// Expected failure: XCTAssertEqual failed: ("[TDDKitTests.XCTAssertContainsEqualTests.(unknown context at $101f271c8).Spy.Message.getUsername, TDDKitTests.XCTAssertContainsEqualTests.(unknown context at $101f271c8).Spy.Message.getAge]") is not equal to ("[TDDKitTests.XCTAssertContainsEqualTests.(unknown context at $101f271c8).Spy.Message.getAge, TDDKitTests.XCTAssertContainsEqualTests.(unknown context at $101f271c8).Spy.Message.getUsername]")
+    }
+}
+````
+
+But if `Spy.Messages` conforms to ``XCTCustomDebugStringConvertible``, then there will be a much nicer output:
+
+
+````swift
+func test_createPoem_callsServices() async throws {
+    let (sut, spy) = makeSUT()
+
+    _ = try await sut.createPoem()
+
+    XCTExpectFailure {
+        XCTAssertEqual(spy.messages, [.getAge, .getUsername])
+// Expected failure: XCTAssertEqual failed: ("[.getUsername, .getAge]") is not equal to ("[.getAge, .getUsername]")
+    }
+}
+````
+
 - Note: Does not handle nested enums.
 [Feature request](https://github.com/andybezaire/TDDKit/issues) if needed.
 - Note: Uses the `@_silgen_name` property wrapper.
