@@ -10,6 +10,29 @@ final class XCTCustomStringConvertibleTests: XCTestCase {
         XCTAssertEqual("\(spy)", "Spy")
     }
 
+    func test_simpleEnums_description_succeeds() {
+        let caseOne = Simple.one
+        let caseTwo = Simple.two
+        let caseThree = Simple.three
+
+        XCTAssertEqual("\(caseOne)", ".one")
+        XCTAssertEqual("\(caseTwo)", ".two")
+        XCTAssertEqual("\(caseThree)", ".three")
+    }
+
+    func test_simpleEnumsAssert_description_succeeds() {
+        let caseOne = Simple.one
+        let caseTwo = Simple.two
+        let caseThree = Simple.three
+
+        XCTExpectFailure {
+            XCTAssertEqual(Simple.one, .two)
+            XCTAssertCountEqual([Simple.one], [.two])
+            XCTAssertContainsEqual([Simple.one], [.two])
+            XCTAssertCastEqual(Simple.one, Simple.two)
+        }
+    }
+
     // MARK: - helpers
     private class Spy: Port, XCTCustomStringConvertible {
         var circularReference: Suting?
@@ -17,6 +40,7 @@ final class XCTCustomStringConvertibleTests: XCTestCase {
 }
 
 extension Instance: XCTCustomStringConvertible { }
+extension Simple: XCTCustomStringConvertible { }
 
 // MARK: - production
 private protocol Port { }
@@ -28,11 +52,28 @@ private class Instance: Suting {
     }
 }
 
+private enum Simple: CaseIterable { case one, two, three }
+
 // MARK: - move to production
 protocol XCTCustomStringConvertible: CustomStringConvertible { }
 extension XCTCustomStringConvertible {
     var description: String {
-        let reflection = Mirror(reflecting: self)
-        return "\(reflection.subjectType)"
+        if let caseName = getEnumCaseName(for: self) {
+            return ".\(caseName)"
+        } else {
+            let reflection = Mirror(reflecting: self)
+            return "\(reflection.subjectType)"
+        }
+    }
+
+    // MARK: - helpers
+    @_silgen_name("swift_EnumCaseName")
+    private func _getEnumCaseName<T>(_ value: T) -> UnsafePointer<CChar>?
+
+    private func getEnumCaseName<T>(for value: T) -> String? {
+        if let stringPtr = _getEnumCaseName(value) {
+            return String(validatingUTF8: stringPtr)
+        }
+        return nil
     }
 }
