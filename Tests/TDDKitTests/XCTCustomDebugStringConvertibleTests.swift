@@ -1,7 +1,7 @@
 import XCTest
 import TDDKit
 
-final class XCTCustomStringConvertibleTests: XCTestCase {
+final class XCTCustomDebugStringConvertibleTests: XCTestCase {
     func test_classInstance_description_succeeds() {
         let spy = Spy()
         let sut = Instance(port: spy)
