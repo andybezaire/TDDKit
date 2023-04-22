@@ -1,7 +1,8 @@
-/// Nicely debug print just the type name or enum case
+/// Nicely debug print just the class name or enum case
 ///
 /// - Note: Does not handle nested enums.
 /// [Feature request](https://github.com/andybezaire/TDDKit/issues) if needed.
+/// - Note: Uses the `@_silgen_name` property wrapper.
 public protocol XCTCustomDebugStringConvertible: CustomDebugStringConvertible { }
 
 public extension XCTCustomDebugStringConvertible {

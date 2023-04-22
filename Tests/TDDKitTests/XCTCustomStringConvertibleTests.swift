@@ -10,6 +10,14 @@ final class XCTCustomStringConvertibleTests: XCTestCase {
         XCTAssertEqual("\(spy)", "Spy")
     }
 
+    func test_classInstanceAssert_description_succeeds() {
+        let spy = Spy()
+        spy.circularReference = spy
+
+        XCTExpectFailure()
+        XCTAssertWillDeallocate(instance: spy)
+    }
+
     func test_simpleEnums_description_succeeds() {
         let caseOne = Simple.one
         let caseTwo = Simple.two
@@ -94,7 +102,7 @@ final class XCTCustomStringConvertibleTests: XCTestCase {
 
     // MARK: - helpers
     private class Spy: Port, XCTCustomDebugStringConvertible {
-        var circularReference: Suting?
+        var circularReference: Port?
     }
 }
 
