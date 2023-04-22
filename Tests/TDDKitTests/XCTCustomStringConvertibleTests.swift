@@ -93,14 +93,14 @@ final class XCTCustomStringConvertibleTests: XCTestCase {
     }
 
     // MARK: - helpers
-    private class Spy: Port, XCTCustomStringConvertible {
+    private class Spy: Port, XCTCustomDebugStringConvertible {
         var circularReference: Suting?
     }
 }
 
-extension Instance: XCTCustomStringConvertible { }
-extension Simple: XCTCustomStringConvertible { }
-extension Complex: XCTCustomStringConvertible { }
+extension Instance: XCTCustomDebugStringConvertible { }
+extension Simple: XCTCustomDebugStringConvertible { }
+extension Complex: XCTCustomDebugStringConvertible { }
 
 // MARK: - production
 private protocol Port { }

@@ -1,7 +1,11 @@
-public protocol XCTCustomStringConvertible: CustomStringConvertible { }
+/// Nicely debug print just the type name or enum case
+///
+/// - Note: Does not handle nested enums.
+/// [Feature request](https://github.com/andybezaire/TDDKit/issues) if needed.
+public protocol XCTCustomDebugStringConvertible: CustomDebugStringConvertible { }
 
-public extension XCTCustomStringConvertible {
-    var description: String {
+public extension XCTCustomDebugStringConvertible {
+    var debugDescription: String {
         if let caseName = getEnumCaseName(for: self) {
             let reflection = Mirror(reflecting: self)
 
