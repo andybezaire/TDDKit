@@ -8,7 +8,6 @@ final class XCTAssertWillDeallocateInstanceTests: XCTestCase {
         spy.reference = sut
 
         XCTExpectFailure()
-
         XCTAssertWillDeallocate(instance: sut)
         XCTAssertWillDeallocate(instance: spy)
     }
@@ -18,12 +17,11 @@ final class XCTAssertWillDeallocateInstanceTests: XCTestCase {
         sut.reference = sut
 
         XCTExpectFailure()
-
         XCTAssertWillDeallocate(instance: sut)
     }
 
     // MARK: - helpers
-    private class Instance {
+    private class Instance: XCTCustomDebugStringConvertible {
         var reference: Instance?
         init(reference: Instance? = nil) { self.reference = reference }
     }

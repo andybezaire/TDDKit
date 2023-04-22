@@ -1,4 +1,5 @@
 import XCTest
+import TDDKit
 
 final class XCTAssertContainsEqualTests: XCTestCase {
     func test_createPoem_callsServices() async throws {
@@ -186,15 +187,7 @@ final class XCTAssertContainsEqualTests: XCTestCase {
     }
 
     private final class Spy: UserService {
-        enum Message: CustomStringConvertible {
-            case getUsername, getAge
-            var description: String {
-                switch self {
-                case .getUsername: return "getUsername"
-                case .getAge: return "getAge"
-                }
-            }
-        }
+        enum Message: XCTCustomDebugStringConvertible { case getUsername, getAge }
 
         private let getUsernameResult: Result<String, Error>
         private let getAgeResult: Result<Int, Error>
