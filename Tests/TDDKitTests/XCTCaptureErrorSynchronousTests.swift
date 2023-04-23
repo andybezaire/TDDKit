@@ -10,14 +10,14 @@ final class XCTCaptureErrorSynchronousTests: XCTestCase {
         XCTAssertCastEqual(capturedError, error)
     }
 
-//    func test_succedingBlock_captureError_capturesNil() async throws {
-//        let block: () async throws -> Void = { }
-//
-//        XCTExpectFailure()
-//        let capturedError = await XCTCaptureError(from: try await block())
-//
-//        XCTAssertNil(capturedError)
-//    }
+    func test_succedingBlock_captureError_capturesNil() {
+        let block: () throws -> Void = { }
+
+        XCTExpectFailure()
+        let capturedError = XCTCaptureError(from: try block())
+
+        XCTAssertNil(capturedError)
+    }
 
 //    func test_failingBlock_captureError_succeeds() async throws {
 //        let error = XCTAnyError()
