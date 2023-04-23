@@ -8,12 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Synchronous version of Capture Error
-- Result completion version of Capture Error
-- Sample usage example to readme and tests
 ### Fixed
 ### Changed
 ### Removed
+
+## [1.9.0] - 2023-04-23
+
+### Added
+- Synchronous version of Capture Error
+- Result completion version of Capture Error
+- Sample usage example to readme and tests
 
 ## [1.8.0] - 2023-04-22
 
