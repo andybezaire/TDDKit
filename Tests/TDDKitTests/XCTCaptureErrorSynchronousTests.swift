@@ -29,14 +29,14 @@ final class XCTCaptureErrorSynchronousTests: XCTestCase {
     }
 
     // MARK: - With message
-//    func test_succedingBlockWithMessage_captureError_fails() async throws {
-//        let block: () async throws -> Void = { }
-//
-//        XCTExpectFailure()
-//        let capturedError = await XCTCaptureError(from: try await block(), "Added message")
-//
-//        XCTAssertNil(capturedError)
-//    }
+    func test_succedingBlockWithMessage_captureError_fails() {
+        let block: () throws -> Void = { }
+
+        XCTExpectFailure()
+        let capturedError = XCTCaptureError(from: try block(), "Added message")
+
+        XCTAssertNil(capturedError)
+    }
 
     // MARK: - helpers
     private func makeSUT(
