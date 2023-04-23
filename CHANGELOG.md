@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Synchronous version of Capture Error
+- Sample usage example to readme and tests
 ### Fixed
 ### Changed
 ### Removed
