@@ -25,6 +25,7 @@ public extension XCTestCase {
     ///   - line: The line number where the failure occurs.
     ///   The default is the line number where you call this function.
     /// - Returns: The error thrown from the block or nil if no error thrown.
+    /// If no error is thrown, the function will record a test failure.
      func XCTCaptureError<T>(
         from block: @autoclosure () async throws -> T,
         _ message: @autoclosure () -> String = "",
@@ -71,6 +72,7 @@ public extension XCTestCase {
     ///   - line: The line number where the failure occurs.
     ///   The default is the line number where you call this function.
     /// - Returns: The error thrown from the block or nil if no error thrown.
+    /// If no error is thrown, the function will record a test failure.
      func XCTCaptureError<T>(
         from block: @autoclosure () throws -> T,
         _ message: @autoclosure () -> String = "",
