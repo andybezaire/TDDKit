@@ -17,7 +17,7 @@ you writing great tests that are clear, concise and to-the-point.
 🫵😎🎉
 
 For a full list of features and usage please see the
-[documentation on GitHub](https://andybezaire.github.io/TDDKit/documentation/tddkit/)
+[documentation](#documentation)
 
 
 ## Installation
