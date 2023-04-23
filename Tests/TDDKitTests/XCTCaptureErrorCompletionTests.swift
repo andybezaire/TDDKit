@@ -11,14 +11,14 @@ final class XCTCaptureErrorCompletionTests: XCTestCase {
         XCTAssertCastEqual(capturedError, error)
     }
 
-//    func test_succedingBlock_captureError_capturesNil() throws {
-//        let block: () throws -> Void = { }
-//
-//        XCTExpectFailure()
-//        let capturedError = XCTCaptureError(from: try block())
-//
-//        XCTAssertNil(capturedError)
-//    }
+    func test_succedingBlock_captureError_capturesNil() throws {
+        let block: (@escaping (Result<Void, Error>) -> Void) -> Void = { $0(.success(())) }
+
+        XCTExpectFailure()
+        let capturedError = XCTCaptureError(from: block)
+
+        XCTAssertNil(capturedError)
+    }
 
 //    func test_failingBlock_captureError_succeeds() throws {
 //        let error = XCTAnyError()
@@ -101,7 +101,6 @@ extension OUATPoemCreatorCompletion: PoemCreatorCompletion {
 }
 
 public extension XCTestCase {
-    typealias ResultCompletion<T, Failure> = (Result<T, Failure>) -> Void where Failure: Error
     /// Capture the error from function that completes with a `Result`.
     ///
     /// This function will return the error from a throwing call.
@@ -128,7 +127,7 @@ public extension XCTestCase {
     /// - Returns: The error thrown from the block or nil if no error thrown.
     /// If no error is thrown, the function will record a test failure.
      func XCTCaptureError<T, Failure>(
-        from resultCompletionBlock: @escaping (@escaping ResultCompletion<T, Failure>) -> Void,
+        from resultCompletionBlock: @escaping (@escaping (Result<T, Failure>) -> Void) -> Void,
         _ message: @escaping @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
