@@ -6,7 +6,7 @@ final class XCTCaptureErrorCompletionTests: XCTestCase {
         let error = XCTAnyError()
         let (sut, _) = makeSUT(getUsernameResult: .failure(error))
 
-        let capturedError = await XCTCaptureError1(from: { sut.createPoem(completion: $0) })
+        let capturedError = await XCTCaptureError(from: { sut.createPoem(completion: $0) })
 
         XCTAssertCastEqual(capturedError, error)
     }
@@ -125,7 +125,7 @@ public extension XCTestCase {
     ///   - line: The line number where the failure occurs.
     ///   The default is the line number where you call this function.
     /// - Returns: The error thrown from the block or nil if no error thrown.
-     func XCTCaptureError1<T, Failure>(
+     func XCTCaptureError<T, Failure>(
         from block: @escaping (@escaping (Result<T, Failure>) -> Void) -> Void,
         _ message: @escaping @autoclosure () -> String = "",
         file: StaticString = #file,
