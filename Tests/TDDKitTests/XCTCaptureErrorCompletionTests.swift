@@ -30,14 +30,14 @@ final class XCTCaptureErrorCompletionTests: XCTestCase {
     }
 
     // MARK: - With message
-//    func test_succedingBlockWithMessage_captureError_fails() throws {
-//        let block: () throws -> Void = { }
-//
-//        XCTExpectFailure()
-//        let capturedError = XCTCaptureError(from: try block(), "Added message")
-//
-//        XCTAssertNil(capturedError)
-//    }
+    func test_succedingBlockWithMessage_captureError_fails() async {
+        let block: (@escaping (Result<Void, Error>) -> Void) -> Void = { $0(.success(())) }
+
+        XCTExpectFailure()
+        let capturedError = await XCTCaptureError(from: block, "Added message")
+
+        XCTAssertNil(capturedError)
+    }
 
     // MARK: - helpers
     private func makeSUT(
