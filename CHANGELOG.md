@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Synchronous version of Capture Error
 ### Fixed
 ### Changed
 ### Removed
@@ -16,9 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Custom Debug String Convertible
-### Fixed
-### Changed
-### Removed
 
 ## [1.7.0] - 2023-04-10
 
