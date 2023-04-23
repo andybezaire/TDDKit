@@ -11,23 +11,23 @@ final class XCTCaptureErrorCompletionTests: XCTestCase {
         XCTAssertCastEqual(capturedError, error)
     }
 
-    func test_succedingBlock_captureError_capturesNil() throws {
+    func test_succedingBlock_captureError_capturesNil() async {
         let block: (@escaping (Result<Void, Error>) -> Void) -> Void = { $0(.success(())) }
 
         XCTExpectFailure()
-        let capturedError = XCTCaptureError(from: block)
+        let capturedError = await XCTCaptureError(from: block)
 
         XCTAssertNil(capturedError)
     }
 
-//    func test_failingBlock_captureError_succeeds() throws {
-//        let error = XCTAnyError()
-//        let block: () throws -> Void = { throw error }
-//
-//        let capturedError = XCTCaptureError(from: try block())
-//
-//        XCTAssertCastEqual(capturedError, error)
-//    }
+    func test_failingBlock_captureError_succeeds() async {
+        let error = XCTAnyError()
+        let block: (@escaping (Result<Void, Error>) -> Void) -> Void = { $0(.failure(error)) }
+
+        let capturedError = await XCTCaptureError(from: block)
+
+        XCTAssertCastEqual(capturedError, error)
+    }
 
     // MARK: - With message
 //    func test_succedingBlockWithMessage_captureError_fails() throws {
