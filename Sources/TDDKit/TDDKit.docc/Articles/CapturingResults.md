@@ -23,6 +23,8 @@ These helpers will help to remove the boilerplate and keep your tests tight and 
 
 - ``XCTest/XCTestCase/XCTCaptureError(from:_:file:line:)-2tp43`` (synchronous)
 
+- ``XCTest/XCTestCase/XCTCaptureError(from:_:file:line:)-3rvhj`` (result completion)
+
 The `do`-`try`-`catch` dance with optional captured errors can add a lot of boilerplate to your tests. 
 
 This helps by turning the error capture into a single line. A non-optional error is returned 

@@ -32,6 +32,7 @@ you writing great tests that are clear, concise and to-the-point.
 - <doc:CapturingResults>
 - ``XCTest/XCTestCase/XCTCaptureError(from:_:file:line:)-1ufmh``
 - ``XCTest/XCTestCase/XCTCaptureError(from:_:file:line:)-2tp43``
+- ``XCTest/XCTestCase/XCTCaptureError(from:_:file:line:)-3rvhj``
 - ``XCTest/XCTestCase/XCTCaptureIsMainThread(for:droppingFirst:when:)``
 - ``XCTest/XCTestCase/XCTCaptureOutput(for:droppingFirst:when:)``
 - ``XCTest/XCTestCase/XCTCaptureOutput(of:for:droppingFirst:when:)``
