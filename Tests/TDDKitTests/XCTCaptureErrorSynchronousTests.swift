@@ -1,7 +1,7 @@
 import XCTest
 
 final class XCTCaptureErrorSynchronousTests: XCTestCase {
-    func test_failingGetUsername_createPoem_fails() {
+    func test_failingGetUsername_createPoem_fails() throws {
         let error = XCTAnyError()
         let (sut, _) = makeSUT(getUsernameResult: .failure(error))
 
@@ -10,7 +10,7 @@ final class XCTCaptureErrorSynchronousTests: XCTestCase {
         XCTAssertCastEqual(capturedError, error)
     }
 
-    func test_succedingBlock_captureError_capturesNil() {
+    func test_succedingBlock_captureError_capturesNil() throws {
         let block: () throws -> Void = { }
 
         XCTExpectFailure()
@@ -19,7 +19,7 @@ final class XCTCaptureErrorSynchronousTests: XCTestCase {
         XCTAssertNil(capturedError)
     }
 
-    func test_failingBlock_captureError_succeeds() {
+    func test_failingBlock_captureError_succeeds() throws {
         let error = XCTAnyError()
         let block: () throws -> Void = { throw error }
 
@@ -29,7 +29,7 @@ final class XCTCaptureErrorSynchronousTests: XCTestCase {
     }
 
     // MARK: - With message
-    func test_succedingBlockWithMessage_captureError_fails() {
+    func test_succedingBlockWithMessage_captureError_fails() throws {
         let block: () throws -> Void = { }
 
         XCTExpectFailure()
@@ -111,7 +111,7 @@ public extension XCTestCase {
     /// If no error was thrown, it will record a test failure.
     ///
     /// ```swift
-    /// func test_failingGetUsername_createPoem_fails() {
+    /// func test_failingGetUsername_createPoem_fails() throws {
     ///     let error = XCTAnyError()
     ///     let (sut, _) = makeSUT(getUsernameResult: .failure(error))
     ///
