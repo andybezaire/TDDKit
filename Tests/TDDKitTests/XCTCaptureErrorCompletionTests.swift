@@ -101,6 +101,7 @@ extension OUATPoemCreatorCompletion: PoemCreatorCompletion {
 }
 
 public extension XCTestCase {
+    typealias ResultCompletion<T, Failure> = (Result<T, Failure>) -> Void where Failure: Error
     /// Capture the error from an asyncronous throwing function call.
     ///
     /// This function will return the error from a throwing call.
@@ -118,21 +119,22 @@ public extension XCTestCase {
     /// ```
     ///
     /// - Parameters:
-    ///   - block: The function call under test.
+    ///   - completionBlock: The completion handling function call under test.
     ///   - message: An optional description of a failure.
     ///   - file: The file where the failure occurs.
     ///   The default is the filename of the test case where you call this function.
     ///   - line: The line number where the failure occurs.
     ///   The default is the line number where you call this function.
     /// - Returns: The error thrown from the block or nil if no error thrown.
+    /// If no error is thrown, the function will record a test failure.
      func XCTCaptureError<T, Failure>(
-        from block: @escaping (@escaping (Result<T, Failure>) -> Void) -> Void,
+        from completionBlock: @escaping (@escaping ResultCompletion<T, Failure>) -> Void,
         _ message: @escaping @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
      ) async -> Failure? where Failure: Error {
          await withCheckedContinuation { continuation in
-             block { result in
+             completionBlock { result in
                  switch result {
                  case .success:
                      let description = ["XCTCaptureError failed: should have thrown an error", message()]
