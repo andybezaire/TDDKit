@@ -102,7 +102,7 @@ extension OUATPoemCreatorCompletion: PoemCreatorCompletion {
 
 public extension XCTestCase {
     typealias ResultCompletion<T, Failure> = (Result<T, Failure>) -> Void where Failure: Error
-    /// Capture the error from an asyncronous throwing function call.
+    /// Capture the error from function that completes with a `Result`.
     ///
     /// This function will return the error from a throwing call.
     /// If no error was thrown, it will record a test failure.
@@ -112,14 +112,14 @@ public extension XCTestCase {
     ///     let error = XCTAnyError()
     ///     let (sut, _) = makeSUT(getUsernameResult: .failure(error))
     ///
-    ///     let capturedError = await XCTCaptureError(from: try await sut.createPoem())
+    ///     let capturedError = await XCTCaptureError(from: { sut.createPoem(completion: $0) })
     ///
     ///     XCTAssertCastEqual(capturedError, error)
     /// }
     /// ```
     ///
     /// - Parameters:
-    ///   - completionBlock: The completion handling function call under test.
+    ///   - resultCompletionBlock: The function call under test that completes with a `Result`.
     ///   - message: An optional description of a failure.
     ///   - file: The file where the failure occurs.
     ///   The default is the filename of the test case where you call this function.
@@ -128,13 +128,13 @@ public extension XCTestCase {
     /// - Returns: The error thrown from the block or nil if no error thrown.
     /// If no error is thrown, the function will record a test failure.
      func XCTCaptureError<T, Failure>(
-        from completionBlock: @escaping (@escaping ResultCompletion<T, Failure>) -> Void,
+        from resultCompletionBlock: @escaping (@escaping ResultCompletion<T, Failure>) -> Void,
         _ message: @escaping @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
      ) async -> Failure? where Failure: Error {
          await withCheckedContinuation { continuation in
-             completionBlock { result in
+             resultCompletionBlock { result in
                  switch result {
                  case .success:
                      let description = ["XCTCaptureError failed: should have thrown an error", message()]
