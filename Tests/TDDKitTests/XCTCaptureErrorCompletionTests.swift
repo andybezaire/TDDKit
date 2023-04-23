@@ -1,14 +1,20 @@
 import XCTest
+import TDDKit
 
 final class XCTCaptureErrorCompletionTests: XCTestCase {
-//    func test_failingGetUsername_createPoem_fails() throws {
-//        let error = XCTAnyError()
-//        let (sut, _) = makeSUT(getUsernameResult: .failure(error))
-//
-//        let capturedError = XCTCaptureError(from: try sut.createPoem())
-//
-//        XCTAssertCastEqual(capturedError, error)
-//    }
+    func test_failingGetUsername_createPoem_fails() async {
+        let error = XCTAnyError()
+        let (sut, _) = makeSUT(getUsernameResult: .failure(error))
+
+        let capturedError = await XCTCaptureError1(
+            from: { (completion: @escaping (Result<String, Error>) -> Void) -> Void in
+                sut.createPoem(completion: completion)
+
+            }
+        )
+
+        XCTAssertCastEqual(capturedError, error)
+    }
 
 //    func test_succedingBlock_captureError_capturesNil() throws {
 //        let block: () throws -> Void = { }
@@ -96,5 +102,54 @@ extension OUATPoemCreatorCompletion: PoemCreatorCompletion {
                 completion(.failure(error))
             }
         }
+    }
+}
+
+public extension XCTestCase {
+    /// Capture the error from an asyncronous throwing function call.
+    ///
+    /// This function will return the error from a throwing call.
+    /// If no error was thrown, it will record a test failure.
+    ///
+    /// ```swift
+    /// func test_failingGetUsername_createPoem_fails() async {
+    ///     let error = XCTAnyError()
+    ///     let (sut, _) = makeSUT(getUsernameResult: .failure(error))
+    ///
+    ///     let capturedError = await XCTCaptureError(from: try await sut.createPoem())
+    ///
+    ///     XCTAssertCastEqual(capturedError, error)
+    /// }
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - block: The function call under test.
+    ///   - message: An optional description of a failure.
+    ///   - file: The file where the failure occurs.
+    ///   The default is the filename of the test case where you call this function.
+    ///   - line: The line number where the failure occurs.
+    ///   The default is the line number where you call this function.
+    /// - Returns: The error thrown from the block or nil if no error thrown.
+     func XCTCaptureError1<T, Error>(
+        from block: @escaping (@escaping (Result<T, Error>) -> Void) -> Void,
+        _ message: @escaping @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+     ) async -> Error? {
+         await withCheckedContinuation { continuation in
+             block { result in
+                 switch result {
+                 case .success:
+                     let description = ["XCTCaptureError failed: should have thrown an error", message()]
+                         .filter { !$0.isEmpty }
+                         .joined(separator: " - ")
+                     let context: XCTSourceCodeContext = .init(location: .init(filePath: file, lineNumber: line))
+                     self.record(.init(type: .assertionFailure, compactDescription: description, sourceCodeContext: context))
+                     continuation.resume(returning: nil)
+                 case let .failure(error):
+                     continuation.resume(returning: error)
+                 }
+             }
+         }
     }
 }
