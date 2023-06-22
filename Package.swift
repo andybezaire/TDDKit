@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "TDDKit", targets: ["TDDKit"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.2.0")
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.3.0")
     ],
     targets: [
         .target(name: "TDDKit", dependencies: []),
