@@ -51,9 +51,11 @@ public extension XCTestCase {
             }
 
             guard missingResult.isEmpty else {
+                let missing = missingResult.count
+                let extra = extraResult.count
                 let description = [
-                    "XCTAssertContainsEqual failed: expression1 missing elements (\"\(missingResult)\")" +
-                    (extraResult.isEmpty ? "" : " and has extra elements (\"\(extraResult)\")"),
+                    "XCTAssertContainsEqual failed: expression1 missing \(missing) element(s) (\"\(missingResult)\")" +
+                    (extraResult.isEmpty ? "" : " and has \(extra) extra element(s) (\"\(extraResult)\")"),
                     message()
                 ]
                     .filter { !$0.isEmpty }
@@ -64,8 +66,9 @@ public extension XCTestCase {
             }
 
             guard extraResult.isEmpty else {
+                let extra = extraResult.count
                 let description = [
-                    "XCTAssertContainsEqual failed: expression1 has extra elements (\"\(extraResult)\")",
+                    "XCTAssertContainsEqual failed: expression1 has \(extra) extra element(s) (\"\(extraResult)\")",
                     message()
                 ]
                     .filter { !$0.isEmpty }
