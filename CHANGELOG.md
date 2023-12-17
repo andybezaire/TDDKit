@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
@@ -10,9 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 ### Fixed
 ### Changed
-- XCTAssertContainsEqual now shows number of elements missing and/or extra
-
 ### Removed
+
+## [1.9.1] - 2023-12-17
+
+### Changed
+- XCTAssertContainsEqual now shows number of elements missing and/or extra
 
 ## [1.9.0] - 2023-04-23
 
@@ -95,7 +98,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Expect Will Deallocate Instance
 
 
-[unreleased]: https://github.com/andybezaire/TDDKit/compare/v1.8.0...HEAD
+[unreleased]: https://github.com/andybezaire/TDDKit/compare/v1.9.1...HEAD
+[1.9.1]: https://github.com/andybezaire/TDDKit/compare/v1.9.0...v1.9.1
+[1.9.0]: https://github.com/andybezaire/TDDKit/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/andybezaire/TDDKit/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/andybezaire/TDDKit/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/andybezaire/TDDKit/compare/v1.5.0...v1.6.0
